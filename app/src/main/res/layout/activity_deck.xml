@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:bind="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="viewModel"
+            type="makes.flint.dyor.deck.models.DeckViewModel"/>
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".deck.ui.DeckActivity">
+
+        <com.yuyakaido.android.cardstackview.CardStackView
+            android:id="@+id/card_stack"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:swipeDirection="horizontal"
+            app:layout_constraintBottom_toTopOf="@id/navigation_bottom_bar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <android.support.design.widget.BottomNavigationView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/navigation_bottom_bar"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/bottom_bar_height"
+            android:background="@color/colorPrimary"
+            app:elevation="16dp"
+            app:itemIconTint="@drawable/bottom_bar_state_selector"
+            app:itemTextColor="@drawable/bottom_bar_state_selector"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+    </android.support.constraint.ConstraintLayout>
+</layout>
