@@ -8,7 +8,6 @@ import makes.flint.dyor.R
 
 /**
  * ErrorHandler
- * Copyright © 2018 Intelligent Loyalty Limited. All rights reserved.
  */
 
 object ErrorHandler {

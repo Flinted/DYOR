@@ -4,7 +4,6 @@ import javax.inject.Scope
 
 /**
  * UserScope
- * Copyright © 2018 Intelligent Loyalty Limited. All rights reserved.
  */
 
 @Scope

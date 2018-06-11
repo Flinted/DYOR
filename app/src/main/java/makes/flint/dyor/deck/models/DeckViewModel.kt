@@ -7,7 +7,6 @@ import javax.inject.Inject
 
 /**
  * DeckViewModel
- * Copyright © 2018 Intelligent Loyalty Limited. All rights reserved.
  */
 class DeckViewModel @Inject constructor(){
 

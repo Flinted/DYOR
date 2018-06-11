@@ -8,7 +8,6 @@ import javax.inject.Singleton
 
 /**
  * PresenterComponent
- * Copyright © 2018 Intelligent Loyalty Limited. All rights reserved.
  */
 
 @Singleton

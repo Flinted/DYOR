@@ -11,7 +11,6 @@ import makes.flint.dyor.deck.models.DeckItemViewModel
 
 /**
  * DeckAdapter
- * Copyright © 2018 Intelligent Loyalty Limited. All rights reserved.
  */
 
  class DeckAdapter(val entries: ObservableArrayList<DeckItemViewModel>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {

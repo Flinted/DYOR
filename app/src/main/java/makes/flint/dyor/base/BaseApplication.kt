@@ -8,7 +8,6 @@ import makes.flint.dyor.injection.modules.ViewModelModule
 
 /**
  * BaseApplication
- * Copyright © 2018 Intelligent Loyalty Limited. All rights reserved.
  */
 
 class BaseApplication : Application() {

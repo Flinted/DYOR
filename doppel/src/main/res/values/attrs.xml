@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="DoppelLinearLayout">
+        <attr name="startDoppeled" format="boolean" />
+        <attr name="doppelDepth" format="integer" />
+        <attr name="doppelWidth" format="dimension" />
+        <attr name="doppelHeight" format="dimension" />
+    </declare-styleable>
+</resources>

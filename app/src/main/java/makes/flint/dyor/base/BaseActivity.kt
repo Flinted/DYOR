@@ -7,7 +7,6 @@ import makes.flint.dyor.injection.components.ViewModelComponent
 
 /**
  * BaseActivity
- * Copyright © 2018 Intelligent Loyalty Limited. All rights reserved.
  */
 
 abstract class BaseActivity : AppCompatActivity() {

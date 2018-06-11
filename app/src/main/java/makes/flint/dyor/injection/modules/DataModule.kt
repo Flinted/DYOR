@@ -16,7 +16,6 @@ import javax.inject.Named
 
 /**
  * DataModule
- * Copyright © 2018 Intelligent Loyalty Limited. All rights reserved.
  */
 
 @Module
