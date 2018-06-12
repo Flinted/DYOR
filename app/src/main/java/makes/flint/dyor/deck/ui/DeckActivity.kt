@@ -11,7 +11,7 @@ import android.support.v7.widget.CardView
 import android.view.ViewGroup
 import android.widget.Toast
 import makes.flint.doppel.doppelState.Doppel
-import makes.flint.doppel.doppelState.DoppelConfigurationBuilder
+import makes.flint.doppel.doppelState.doppelbuilder.DoppelConfigurationBuilder
 import makes.flint.doppel.doppelState.backgroundproviders.DoppelViewTypeColorProvider
 import makes.flint.dyor.R
 import makes.flint.dyor.base.BaseActivity

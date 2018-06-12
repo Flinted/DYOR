@@ -1,4 +1,4 @@
-package makes.flint.doppel.doppelState.state
+package makes.flint.doppel.doppelState.state.overridedimensions
 
 /**
  * OverrideDimensions

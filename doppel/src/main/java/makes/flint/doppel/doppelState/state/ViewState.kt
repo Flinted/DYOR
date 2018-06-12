@@ -2,12 +2,13 @@ package makes.flint.doppel.doppelState.state
 
 import android.content.Context
 import android.view.View
+import java.lang.ref.WeakReference
 
 /**
  * ViewState
  */
 interface ViewState<T : View> {
-    val view: T
+    val view: WeakReference<T>
     val originallyEnabled: Boolean
 
     fun doppel(context: Context)

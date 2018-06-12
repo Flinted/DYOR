@@ -3,7 +3,7 @@ package makes.flint.doppel.doppelState.backgroundproviders
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.view.View
-import makes.flint.doppel.doppelState.doppelbuilder.DoppelColorDrawable
+import makes.flint.doppel.doppelState.backgroundproviders.drawables.DoppelColorDrawable
 
 /**
  * DoppelViewTypeColorProvider

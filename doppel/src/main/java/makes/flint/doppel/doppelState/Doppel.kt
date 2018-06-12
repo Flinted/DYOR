@@ -3,25 +3,22 @@ package makes.flint.doppel.doppelState
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
-import makes.flint.doppel.doppelState.doppelbuilder.DoppelConfiguration
+import makes.flint.doppel.doppelState.doppelbuilder.configuration.DoppelConfigurable
+import makes.flint.doppel.doppelState.doppelbuilder.configuration.DoppelConfiguration
 import makes.flint.doppel.doppelState.state.ViewState
 import makes.flint.doppel.doppelState.state.ViewStateFactory
 
 /**
  * Doppel
  */
-class Doppel(parent: ViewGroup, private val configuration: DoppelConfiguration = DoppelConfiguration()) {
+class Doppel(parent: ViewGroup, private val configuration: DoppelConfigurable = DoppelConfiguration()) {
 
     private var active = false
     private var views: MutableMap<View, ViewState<*>> = mutableMapOf()
     private var parentView: ViewGroup? = null
 
     init {
-        this.parentView = parent
-        if (configuration.parentViewInclusive) {
-            addView(parent, 1)
-        }
-        val startingLayer = if (configuration.parentViewInclusive) 2 else 1
+        val startingLayer = processParentView(parent)
         byLayer(parent, startingLayer)
     }
 
@@ -36,11 +33,17 @@ class Doppel(parent: ViewGroup, private val configuration: DoppelConfiguration =
         }
     }
 
+    private fun processParentView(parent: ViewGroup): Int {
+        this.parentView = parent
+        if (!configuration.parentViewInclusive) {
+            return 1
+        }
+        addView(parent, 1)
+        return 2
+    }
+
     private fun processChildView(child: View, layer: Int) {
         addView(child, layer)
-        if (layer >= configuration.depth) {
-            return
-        }
         byLayer(child, layer + 1)
     }
 

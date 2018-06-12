@@ -1,9 +1,8 @@
 package makes.flint.doppel.doppelState.backgroundproviders
 
-import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.view.View
-import makes.flint.doppel.doppelState.doppelbuilder.DoppelColorDrawable
+import makes.flint.doppel.doppelState.backgroundproviders.drawables.DoppelColorDrawable
 
 /**
  * DoppelColorDrawablesProvider
@@ -24,10 +23,5 @@ class DoppelColorDrawablesProvider(private val colors: List<Int>,
             return colors.first()
         }
         return colors[layer - 1]
-    }
-
-    companion object {
-        val GRAYS = listOf(Color.DKGRAY, Color.GRAY, Color.LTGRAY, Color.YELLOW)
-        val MULTICOLOR = listOf(Color.MAGENTA, Color.BLUE, Color.GREEN, Color.RED)
     }
 }
