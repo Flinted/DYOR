@@ -1,31 +1,26 @@
 package makes.flint.doppel.doppelState.state
 
-import android.content.Context
 import android.view.View
-import java.lang.ref.WeakReference
 
 /**
  * HideViewState
  */
-class HideViewState(view: View) : ViewState<View> {
+class HideViewState(view: View) : BaseViewState<View>(view), ViewState<View> {
 
-    override val view = WeakReference(view)
-    override val originallyEnabled = view.isEnabled
     private val originalVisibility = view.visibility
 
-    override fun doppel(context: Context) {
+    override fun doppel() {
         if (originalVisibility == View.GONE) {
             return
         }
+        super.doppel()
         val view = view.get() ?: return
         view.visibility = View.INVISIBLE
     }
 
-    override fun restore(context: Context) {
+    override fun restore() {
+        super.doppel()
         val view = view.get() ?: return
         view.visibility = originalVisibility
-    }
-
-    override fun setOverrideDimensions(height: Int, width: Int) {
     }
 }

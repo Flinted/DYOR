@@ -1,4 +1,4 @@
-package makes.flint.doppel.doppelState.doppelbuilder
+package makes.flint.doppel.doppelState.backgroundproviders.drawables
 
 import android.graphics.drawable.GradientDrawable
 import android.view.View
@@ -24,7 +24,7 @@ class DoppelColorDrawable(color: Int,
         if (animationSpeed <= 0) {
             return
         }
-        val fadeAnimation = AlphaAnimation(maxAlpha, minAlpha)
+        val fadeAnimation = AlphaAnimation(minAlpha, maxAlpha)
         fadeAnimation.duration = animationSpeed
         fadeAnimation.repeatMode = Animation.REVERSE
         fadeAnimation.repeatCount = Animation.INFINITE

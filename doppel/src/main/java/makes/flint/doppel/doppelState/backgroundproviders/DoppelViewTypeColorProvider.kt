@@ -8,11 +8,13 @@ import makes.flint.doppel.doppelState.backgroundproviders.drawables.DoppelColorD
 /**
  * DoppelViewTypeColorProvider
  */
-class DoppelViewTypeColorProvider(private val animationSpeed: Long = 1000,
-                                  private val minAlpha: Float = 0.3f,
-                                  private val maxAlpha: Float = 1f,
-                                  private val radius: Float = 0f,
-                                  defaultColor: Int = Color.GRAY) : DoppelBackgroundProvider {
+class DoppelViewTypeColorProvider(defaultColor: Int = Color.GRAY
+) : DoppelBackgroundProvider {
+
+    private var animationSpeed: Long = 1000
+    private var minAlpha: Float = 0.3f
+    private var maxAlpha: Float = 1f
+    private var radius: Float = 0f
 
     private val defaultDrawable = DoppelColorDrawable(defaultColor, animationSpeed, minAlpha, maxAlpha, radius)
 
@@ -26,5 +28,21 @@ class DoppelViewTypeColorProvider(private val animationSpeed: Long = 1000,
 
     fun addViewTypeColours(vararg viewPairs: Pair<Class<*>, Int>) {
         map = viewPairs.toMap()
+    }
+
+    fun setAnimationSpeed(speedMs: Long) {
+        animationSpeed = speedMs
+    }
+
+    fun setMinAlpha(alpha: Float) {
+        minAlpha = alpha
+    }
+
+    fun setMaxAlpha(alpha: Float) {
+        maxAlpha = alpha
+    }
+
+    fun setCornerRadius(radiusPixels: Float) {
+        radius = radiusPixels
     }
 }

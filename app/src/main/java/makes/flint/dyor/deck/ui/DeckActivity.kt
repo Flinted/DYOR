@@ -1,18 +1,18 @@
 package makes.flint.dyor.deck.ui
 
 import android.databinding.DataBindingUtil
-import android.graphics.Color
 import android.os.Bundle
-import android.support.constraint.ConstraintLayout
-import android.support.design.widget.BottomNavigationView
+import android.support.v4.content.ContextCompat
+import android.support.v7.widget.AppCompatEditText
 import android.support.v7.widget.AppCompatImageView
 import android.support.v7.widget.AppCompatTextView
-import android.support.v7.widget.CardView
 import android.view.ViewGroup
 import android.widget.Toast
 import makes.flint.doppel.doppelState.Doppel
-import makes.flint.doppel.doppelState.doppelbuilder.DoppelConfigurationBuilder
+import makes.flint.doppel.doppelState.backgroundproviders.DoppelColorDrawablesProvider
 import makes.flint.doppel.doppelState.backgroundproviders.DoppelViewTypeColorProvider
+import makes.flint.doppel.doppelState.backgroundproviders.backgroundconvenience.DoppelColors
+import makes.flint.doppel.doppelState.doppelbuilder.DoppelConfigurationBuilder
 import makes.flint.dyor.R
 import makes.flint.dyor.base.BaseActivity
 import makes.flint.dyor.databinding.ActivityDeckBinding
@@ -33,26 +33,41 @@ class DeckActivity : BaseActivity() {
         binding.viewModel = deckViewModel
         binding.executePendingBindings()
 
-        val provider = DoppelViewTypeColorProvider(defaultColor = Color.LTGRAY, radius = 15f)
-        provider.addViewTypeColours(
-                Pair(AppCompatTextView::class.java, Color.YELLOW),
-                Pair(AppCompatImageView::class.java, Color.RED))
+        val viewTypeProvider = DoppelViewTypeColorProvider()
+        viewTypeProvider.addViewTypeColours(
+                Pair(AppCompatTextView::class.java, ContextCompat.getColor(this, R.color.red_doppel)),
+                Pair(AppCompatImageView::class.java, ContextCompat.getColor(this, R.color.orange_doppel)))
+
+        val colorProvider = DoppelColorDrawablesProvider(DoppelColors.GREEN())
+        colorProvider.setAnimationSpeed(200)
+        colorProvider.setCornerRadius(50f)
 
         val configuration = DoppelConfigurationBuilder()
-                .withBackgroundProvider(provider)
-                .excludeSpecificViewTypes(ConstraintLayout::class.java, CardView::class.java, BottomNavigationView::class.java)
+                .withBackgroundProvider(viewTypeProvider)
+                .targetSpecificViewTypes(AppCompatImageView::class.java, AppCompatTextView::class.java, AppCompatEditText::class.java)
                 .build()
 
-        val doppel = Doppel(binding.root as ViewGroup, configuration)
-        doppel.targetViewsById(R.id.test_user_type, R.id.test_user_type2, R.id.test_user_type3)
+        val configuration2 = DoppelConfigurationBuilder()
+                .withBackgroundProvider(colorProvider)
+                .targetSpecificViewTypes(AppCompatTextView::class.java, AppCompatEditText::class.java)
+                .build()
+
+        val doppel1 = Doppel(binding.testUserProfileCard as ViewGroup, configuration)
+        val doppel2 = Doppel(binding.testUserProfileCard2 as ViewGroup, configuration)
+        val doppel3 = Doppel(binding.testUserProfileCard3 as ViewGroup, configuration2)
+
         binding.navigationBottomBar.setOnClickListener {
-            if (doppel.isActive()) {
-                doppel.off(this)
+            if (doppel1.active) {
+                doppel1.off()
+                doppel2.off()
+                doppel3.off()
                 return@setOnClickListener
             }
-            doppel.on(this)
+            doppel1.on()
+            doppel2.on()
+            doppel3.on()
         }
-        binding.testImageProfile.setOnClickListener {
+        binding.testUserType3.setOnClickListener {
             Toast.makeText(this, "CLICKED", Toast.LENGTH_SHORT).show()
         }
     }
