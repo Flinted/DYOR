@@ -16,18 +16,20 @@ class DoppelViewTypeColorProvider(defaultColor: Int = Color.GRAY
     private var maxAlpha: Float = 1f
     private var radius: Float = 0f
 
-    private val defaultDrawable = DoppelColorDrawable(defaultColor, animationSpeed, minAlpha, maxAlpha, radius)
+    private val defaultDrawable = lazy { DoppelColorDrawable(defaultColor, animationSpeed, minAlpha, maxAlpha, radius) }
 
-    private var map: Map<Class<*>, Int>? = null
+    private var map: MutableMap<Class<*>, Int> = mutableMapOf()
 
     override fun getBackgroundFor(view: View, layer: Int, depth: Int): Drawable {
-        map ?: return defaultDrawable
-        val color = map?.get(view.javaClass) ?: return defaultDrawable
+        val color = map[view.javaClass] ?: return defaultDrawable.value
         return DoppelColorDrawable(color, animationSpeed, minAlpha, maxAlpha, radius)
     }
 
-    fun addViewTypeColours(vararg viewPairs: Pair<Class<*>, Int>) {
-        map = viewPairs.toMap()
+    fun addViewTypeColors(vararg viewPairs: DoppelViewTypeColor<*>) {
+        map.clear()
+        viewPairs.forEach { viewTypeColor ->
+            map[viewTypeColor.viewType] = viewTypeColor.color
+        }
     }
 
     fun setAnimationSpeed(speedMs: Long) {

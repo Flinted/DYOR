@@ -1,16 +1,16 @@
 package makes.flint.dyor.deck.ui
 
+import android.content.Context
 import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
 import android.support.v7.widget.AppCompatEditText
 import android.support.v7.widget.AppCompatImageView
 import android.support.v7.widget.AppCompatTextView
-import android.view.ViewGroup
+import android.view.View
+import android.widget.AdapterView
 import android.widget.Toast
 import makes.flint.doppel.doppelState.Doppel
 import makes.flint.doppel.doppelState.backgroundproviders.DoppelColorDrawablesProvider
-import makes.flint.doppel.doppelState.backgroundproviders.DoppelViewTypeColorProvider
 import makes.flint.doppel.doppelState.backgroundproviders.backgroundconvenience.DoppelColors
 import makes.flint.doppel.doppelState.doppelbuilder.DoppelConfigurationBuilder
 import makes.flint.dyor.R
@@ -24,51 +24,158 @@ import makes.flint.dyor.deck.models.DeckViewModel
 class DeckActivity : BaseActivity() {
 
     private lateinit var deckViewModel: DeckViewModel
+    private lateinit var doppelSettings: DoppelSettings
+    var doppel: Doppel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        doppelSettings = DoppelSettings(this)
 
         deckViewModel = getViewModelComponent().provideDeckViewModel()
         val binding: ActivityDeckBinding = DataBindingUtil.setContentView(this, R.layout.activity_deck)
         binding.viewModel = deckViewModel
         binding.executePendingBindings()
-
-        val viewTypeProvider = DoppelViewTypeColorProvider()
-        viewTypeProvider.addViewTypeColours(
-                Pair(AppCompatTextView::class.java, ContextCompat.getColor(this, R.color.red_doppel)),
-                Pair(AppCompatImageView::class.java, ContextCompat.getColor(this, R.color.orange_doppel)))
-
-        val colorProvider = DoppelColorDrawablesProvider(DoppelColors.GREEN())
-        colorProvider.setAnimationSpeed(200)
-        colorProvider.setCornerRadius(50f)
-
-        val configuration = DoppelConfigurationBuilder()
-                .withBackgroundProvider(viewTypeProvider)
-                .targetSpecificViewTypes(AppCompatImageView::class.java, AppCompatTextView::class.java, AppCompatEditText::class.java)
-                .build()
-
-        val configuration2 = DoppelConfigurationBuilder()
-                .withBackgroundProvider(colorProvider)
-                .targetSpecificViewTypes(AppCompatTextView::class.java, AppCompatEditText::class.java)
-                .build()
-
-        val doppel1 = Doppel(binding.testUserProfileCard as ViewGroup, configuration)
-        val doppel2 = Doppel(binding.testUserProfileCard2 as ViewGroup, configuration)
-        val doppel3 = Doppel(binding.testUserProfileCard3 as ViewGroup, configuration2)
-
-        binding.navigationBottomBar.setOnClickListener {
-            if (doppel1.active) {
-                doppel1.off()
-                doppel2.off()
-                doppel3.off()
-                return@setOnClickListener
-            }
-            doppel1.on()
-            doppel2.on()
-            doppel3.on()
+        setAlphaListeners(binding)
+        setNumberListeners(binding)
+        setSpinnerListeners(binding)
+        binding.toggleButton.setOnClickListener {
+            onToggleChanged(binding)
         }
-        binding.testUserType3.setOnClickListener {
+
+        binding.testImageProfile.setOnClickListener {
             Toast.makeText(this, "CLICKED", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun onToggleChanged(binding: ActivityDeckBinding) {
+        doppel ?: let {
+            createDoppelInstanceForSettings(binding)
+            doppel?.on()
+            return
+        }
+        doppel?.off()
+        doppel = null
+    }
+
+    private fun setSpinnerListeners(binding: ActivityDeckBinding) {
+        val context = this as Context
+        binding.colorSelectSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(p0: AdapterView<*>?) {}
+
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                doppelSettings.setColors(context, binding.colorSelectSpinner.selectedItem.toString())
+            }
+        }
+        binding.typeSelectSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(p0: AdapterView<*>?) {}
+
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                doppelSettings.setType(context, binding.typeSelectSpinner.selectedItem.toString())
+            }
+        }
+
+    }
+
+    private fun setNumberListeners(binding: ActivityDeckBinding) {
+        binding.radius.minValue = 0
+        binding.radius.maxValue = 15
+        binding.radius.setFormatter {
+            (it * 10).toString()
+        }
+        binding.speed.minValue = 0
+        binding.speed.maxValue = 30
+        binding.speed.setFormatter {
+            (it * 100).toString()
+        }
+        binding.radius.setOnValueChangedListener { numberPicker, old, new ->
+            doppelSettings.radius = (new * 10).toFloat()
+        }
+        binding.speed.setOnValueChangedListener { numberPicker, old, new ->
+            doppelSettings.speed = (new * 100).toLong()
+        }
+        binding.radius.value = 0
+        binding.speed.value = 10
+    }
+
+    private fun setAlphaListeners(binding: ActivityDeckBinding) {
+        binding.minAlpha.minValue = 0
+        binding.minAlpha.maxValue = 10
+        binding.minAlpha.setFormatter {
+            (it * 10).toString()
+        }
+        binding.maxAlpha.minValue = 0
+        binding.maxAlpha.maxValue = 10
+        binding.maxAlpha.setFormatter {
+            (it * 10).toString()
+        }
+        binding.minAlpha.setOnValueChangedListener { numberPicker, old, new ->
+            doppelSettings.minAlpha = (new.toFloat() / 10)
+        }
+        binding.maxAlpha.setOnValueChangedListener { numberPicker, old, new ->
+            doppelSettings.maxAlpha = (new.toFloat() / 10)
+        }
+        binding.minAlpha.value = 5
+        binding.maxAlpha.value = 10
+    }
+
+
+    private fun createDoppelInstanceForSettings(binding: ActivityDeckBinding) {
+        val colorDrawablesProvider = DoppelColorDrawablesProvider(this, doppelSettings.colors)
+        colorDrawablesProvider.setAnimationSpeed(doppelSettings.speed)
+        colorDrawablesProvider.setMinAlpha(doppelSettings.minAlpha)
+        colorDrawablesProvider.setMaxAlpha(doppelSettings.maxAlpha)
+        colorDrawablesProvider.setCornerRadius(doppelSettings.radius)
+        val configurationBuilder = DoppelConfigurationBuilder(this)
+                .withBackgroundProvider(colorDrawablesProvider)
+        when {
+            doppelSettings.type.isEmpty() -> {
+            }
+            else -> configurationBuilder.targetSpecificViewTypes(*doppelSettings.getTypes<View>())
+        }
+        doppel = Doppel(binding.sampleData, configurationBuilder.build())
+    }
+}
+
+private class DoppelSettings(context: Context) {
+
+    var colors = DoppelColors.GRAYS(context)
+    var type: Array<Class<*>> = arrayOf()
+    var minAlpha = 0.5f
+    var maxAlpha = 1f
+    var speed = 1000L
+    var radius = 0f
+
+    fun setColors(context: Context, value: String) {
+        colors = when (value) {
+            "Greys" -> DoppelColors.GRAYS(context)
+            "Greys Inverted" -> DoppelColors.GRAYS_INVERT(context)
+            "Blue Greys" -> DoppelColors.BLUEGRAYS(context)
+            "Blue Greys Inverted" -> DoppelColors.BLUEGRAYS_INVERT(context)
+            "Blues" -> DoppelColors.BLUES(context)
+            "Blues Inverted" -> DoppelColors.BLUES_INVERT(context)
+            "Reds" -> DoppelColors.REDS(context)
+            "Reds Inverted" -> DoppelColors.REDS_INVERT(context)
+            "Greens" -> DoppelColors.LIGHT_GREENS(context)
+            "Greens Inverted" -> DoppelColors.LIGHT_GREENS_INVERT(context)
+            "Yellows" -> DoppelColors.YELLOWS(context)
+            "Yellows Inverted" -> DoppelColors.YELLOWS_INVERT(context)
+            "Random" -> DoppelColors.PALE_MIXED(context).shuffled()
+            else -> DoppelColors.GRAYS(context)
+        }
+    }
+
+    fun setType(context: Context, value: String) {
+        type = when (value) {
+            "Target All Text and Images" -> arrayOf(AppCompatTextView::class.java, AppCompatImageView::class.java, AppCompatEditText::class.java)
+            "Target TextViews" -> arrayOf(AppCompatTextView::class.java)
+            "Target EditTexts" -> arrayOf(AppCompatEditText::class.java)
+            "Target Images" -> arrayOf(AppCompatImageView::class.java)
+            "All, Exclude Images" -> arrayOf(AppCompatImageView::class.java)
+            else -> arrayOf()
+        }
+    }
+
+    fun <T : View> getTypes(): Array<Class<out T>> {
+        return type as Array<Class<out T>>
     }
 }

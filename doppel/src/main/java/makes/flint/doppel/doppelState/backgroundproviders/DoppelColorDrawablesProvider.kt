@@ -1,5 +1,6 @@
 package makes.flint.doppel.doppelState.backgroundproviders
 
+import android.content.Context
 import android.graphics.drawable.Drawable
 import android.view.View
 import makes.flint.doppel.doppelState.backgroundproviders.backgroundconvenience.DoppelColors
@@ -8,7 +9,7 @@ import makes.flint.doppel.doppelState.backgroundproviders.drawables.DoppelColorD
 /**
  * DoppelColorDrawablesProvider
  */
-class DoppelColorDrawablesProvider(private val colors: List<Int> = DoppelColors.GRAYS()) : DoppelBackgroundProvider {
+class DoppelColorDrawablesProvider(context: Context, private val colors: List<Int> = DoppelColors.GRAYS(context)) : DoppelBackgroundProvider {
 
     private var animationSpeed: Long = 1000
     private var minAlpha: Float = 0.3f
@@ -32,10 +33,18 @@ class DoppelColorDrawablesProvider(private val colors: List<Int> = DoppelColors.
     }
 
     fun setMinAlpha(alpha: Float) {
+        if (alpha < 0f) {
+            minAlpha = 0f
+            return
+        }
         minAlpha = alpha
     }
 
     fun setMaxAlpha(alpha: Float) {
+        if (alpha > 1f) {
+            minAlpha = 1f
+            return
+        }
         maxAlpha = alpha
     }
 

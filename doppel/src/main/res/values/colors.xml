@@ -1,11 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="red_doppel">#D83A17</color>
-    <color name="green_doppel">#2DC911</color>
-    <color name="blue_doppel">#113BC9</color>
-    <color name="orange_doppel">#F2B504</color>
-    <color name="yellow_doppel">#ECF703</color>
-    <color name="grey_doppel">#b2b2b2</color>
-    <color name="ltgrey_doppel">#E8E8E8</color>
-    <color name="dkgrey_doppel">#828282</color>
+    <color name="gray0_doppel">#424242</color>
+    <color name="gray1_doppel">#616161</color>
+    <color name="gray2_doppel">#757575</color>
+    <color name="gray3_doppel">#9E9E9E</color>
+    <color name="gray4_doppel">#BDBDBD</color>
+    <color name="gray5_doppel">#E0E0E0</color>
+    <color name="gray6_doppel">#EEEEEE</color>
+    <array name="grays_doppel">
+        <item>@color/gray6_doppel</item>
+        <item>@color/gray5_doppel</item>
+        <item>@color/gray4_doppel</item>
+        <item>@color/gray3_doppel</item>
+        <item>@color/gray2_doppel</item>
+        <item>@color/gray1_doppel</item>
+        <item>@color/gray0_doppel</item>
+    </array>
+
+    <color name="bluegray0_doppel">#37474F</color>
+    <color name="bluegray1_doppel">#455A64</color>
+    <color name="bluegray2_doppel">#546E7A</color>
+    <color name="bluegray3_doppel">#607D8B</color>
+    <color name="bluegray4_doppel">#78909C</color>
+    <color name="bluegray5_doppel">#90A4AE</color>
+    <color name="bluegray6_doppel">#B0BEC5</color>
+    <array name="bluegrays_doppel">
+        <item>@color/bluegray6_doppel</item>
+        <item>@color/bluegray5_doppel</item>
+        <item>@color/bluegray4_doppel</item>
+        <item>@color/bluegray3_doppel</item>
+        <item>@color/bluegray2_doppel</item>
+        <item>@color/bluegray1_doppel</item>
+        <item>@color/bluegray0_doppel</item>
+    </array>
+
+    <color name="orange0_doppel">#D84315</color>
+    <color name="orange1_doppel">#E64A19</color>
+    <color name="orange2_doppel">#F4511E</color>
+    <color name="orange3_doppel">#FF5722</color>
+    <color name="orange4_doppel">#FF7043</color>
+    <color name="orange5_doppel">#FF8A65</color>
+    <color name="orange6_doppel">#FFAB91</color>
+    <array name="oranges_doppel">
+        <item>@color/orange6_doppel</item>
+        <item>@color/orange5_doppel</item>
+        <item>@color/orange4_doppel</item>
+        <item>@color/orange3_doppel</item>
+        <item>@color/orange2_doppel</item>
+        <item>@color/orange1_doppel</item>
+        <item>@color/orange0_doppel</item>
+    </array>
+
+    <color name="light_green0_doppel">#558B2F</color>
+    <color name="light_green1_doppel">#689F38</color>
+    <color name="light_green2_doppel">#7CB342</color>
+    <color name="light_green3_doppel">#8BC34A</color>
+    <color name="light_green4_doppel">#9CCC65</color>
+    <color name="light_green5_doppel">#AED581</color>
+    <color name="light_green6_doppel">#C5E1A5</color>
+    <array name="light_greens_doppel">
+        <item>@color/light_green6_doppel</item>
+        <item>@color/light_green5_doppel</item>
+        <item>@color/light_green4_doppel</item>
+        <item>@color/light_green3_doppel</item>
+        <item>@color/light_green2_doppel</item>
+        <item>@color/light_green1_doppel</item>
+        <item>@color/light_green0_doppel</item>
+    </array>
+
+    <color name="blue0_doppel">#1565C0</color>
+    <color name="blue1_doppel">#1976D2</color>
+    <color name="blue2_doppel">#1E88E5</color>
+    <color name="blue3_doppel">#2196F3</color>
+    <color name="blue4_doppel">#42A5F5</color>
+    <color name="blue5_doppel">#64B5F6</color>
+    <color name="blue6_doppel">#90CAF9</color>
+    <array name="blues_doppel">
+        <item>@color/blue6_doppel</item>
+        <item>@color/blue5_doppel</item>
+        <item>@color/blue4_doppel</item>
+        <item>@color/blue3_doppel</item>
+        <item>@color/blue2_doppel</item>
+        <item>@color/blue1_doppel</item>
+        <item>@color/blue0_doppel</item>
+    </array>
+
+    <color name="red0_doppel">#c62828</color>
+    <color name="red1_doppel">#d32f2f</color>
+    <color name="red2_doppel">#e53935</color>
+    <color name="red3_doppel">#f44336</color>
+    <color name="red4_doppel">#ef5350</color>
+    <color name="red5_doppel">#e57373</color>
+    <color name="red6_doppel">#ef9a9a</color>
+    <array name="reds_doppel">
+        <item>@color/red6_doppel</item>
+        <item>@color/red5_doppel</item>
+        <item>@color/red4_doppel</item>
+        <item>@color/red3_doppel</item>
+        <item>@color/red2_doppel</item>
+        <item>@color/red1_doppel</item>
+        <item>@color/red0_doppel</item>
+    </array>
+
+    <color name="yellow0_doppel">#F9A825</color>
+    <color name="yellow1_doppel">#FBC02D</color>
+    <color name="yellow2_doppel">#FDD835</color>
+    <color name="yellow3_doppel">#FFEB3B</color>
+    <color name="yellow4_doppel">#FFEE58</color>
+    <color name="yellow5_doppel">#FFF176</color>
+    <color name="yellow6_doppel">#FFF59D</color>
+    <array name="yellows_doppel">
+        <item>@color/yellow6_doppel</item>
+        <item>@color/yellow5_doppel</item>
+        <item>@color/yellow4_doppel</item>
+        <item>@color/yellow3_doppel</item>
+        <item>@color/yellow2_doppel</item>
+        <item>@color/yellow1_doppel</item>
+        <item>@color/yellow0_doppel</item>
+    </array>
+
+    <array name="mixed_doppel">
+        <item>@color/yellow3_doppel</item>
+        <item>@color/blue3_doppel</item>
+        <item>@color/light_green3_doppel</item>
+        <item>@color/red3_doppel</item>
+        <item>@color/orange3_doppel</item>
+        <item>@color/bluegray3_doppel</item>
+        <item>@color/gray3_doppel</item>
+    </array>
 </resources>

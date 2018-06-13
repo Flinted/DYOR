@@ -3,4 +3,4 @@ package makes.flint.doppel.doppelState.state.overridedimensions
 /**
  * DoppelOverride
  */
-data class DoppelOverride(val viewId: Int, var heightDp: Int?, var widthDp: Int?)
+class DoppelOverride(val heightDp: Int?, val widthDp: Int?, vararg val viewId: Int)

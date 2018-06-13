@@ -1,19 +1,26 @@
 package makes.flint.doppel.doppelState.backgroundproviders.backgroundconvenience
 
 import android.content.Context
-import android.graphics.Color
-import android.support.v4.content.ContextCompat
 import makes.flint.doppel.R
 
 /**
  * DoppelColors
  */
 object DoppelColors {
-    fun GRAY() = listOf(Color.GRAY)
-    fun BLUE() = listOf(Color.BLUE)
-    fun RED() = listOf(Color.RED)
-    fun GREEN() = listOf(Color.GREEN)
-    fun GRAYS() = listOf(Color.DKGRAY, Color.GRAY, Color.LTGRAY, Color.YELLOW)
-    fun MULTICOLOR() = listOf(Color.MAGENTA, Color.BLUE, Color.GREEN, Color.RED)
-    fun PASTELS(context: Context) = listOf(ContextCompat.getColor(context, R.color.red_doppel))
+    fun GRAYS(context:Context) = context.resources.getIntArray(R.array.grays_doppel).toList()
+    fun GRAYS_INVERT(context:Context) = GRAYS(context).reversed()
+    fun BLUEGRAYS(context:Context) = context.resources.getIntArray(R.array.bluegrays_doppel).toList()
+    fun BLUEGRAYS_INVERT(context:Context) = BLUEGRAYS(context).reversed()
+    fun ORANGES(context:Context) = context.resources.getIntArray(R.array.oranges_doppel).toList()
+    fun ORANGES_INVERT(context:Context) = ORANGES(context).reversed()
+    fun REDS(context:Context) = context.resources.getIntArray(R.array.reds_doppel).toList()
+    fun REDS_INVERT(context:Context) = REDS(context).reversed()
+    fun BLUES(context:Context) = context.resources.getIntArray(R.array.blues_doppel).toList()
+    fun BLUES_INVERT(context:Context) = BLUES(context).reversed()
+    fun LIGHT_GREENS(context:Context) = context.resources.getIntArray(R.array.light_greens_doppel).toList()
+    fun LIGHT_GREENS_INVERT(context:Context) = LIGHT_GREENS(context).reversed()
+    fun YELLOWS(context:Context) = context.resources.getIntArray(R.array.yellows_doppel).toList()
+    fun YELLOWS_INVERT(context:Context) = YELLOWS(context).reversed()
+    fun PALE_MIXED(context:Context) = context.resources.getIntArray(R.array.mixed_doppel).toList()
+    fun PALE_MIXED_INVERT(context:Context) = PALE_MIXED(context).reversed()
 }

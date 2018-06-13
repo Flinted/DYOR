@@ -12,7 +12,8 @@ import makes.flint.doppel.doppelState.state.overridedimensions.DoppelOverride
 /**
  * Doppel
  */
-class Doppel(parent: View, private val configuration: DoppelConfigurable = DoppelConfiguration()) {
+class Doppel(parent: View,
+             private val configuration: DoppelConfigurable = DoppelConfiguration(parent.context)) {
 
     var active = false
         private set
@@ -102,14 +103,15 @@ class Doppel(parent: View, private val configuration: DoppelConfigurable = Doppe
     }
 
     private fun addOverride(override: DoppelOverride) {
-        val view = parentView?.findViewById<View>(override.viewId)
-        val viewToOverride = views[view] ?: let {
-            //VIEW NOT ADDED ERROR!
-            return
+        override.viewId.forEach { id ->
+            val view = parentView?.findViewById<View>(id)
+            val viewToOverride = views[view] ?: let {
+                return
+            }
+            val height = calculatePixelsFromDp(override.heightDp?.toFloat())
+            val width = calculatePixelsFromDp(override.widthDp?.toFloat())
+            viewToOverride.setOverrideDimensions(height, width)
         }
-        val height = calculatePixelsFromDp(override.heightDp?.toFloat())
-        val width = calculatePixelsFromDp(override.widthDp?.toFloat())
-        viewToOverride.setOverrideDimensions(height, width)
     }
 
     private fun calculatePixelsFromDp(valueDp: Float?): Int? {

@@ -1,5 +1,6 @@
 package makes.flint.doppel.doppelState.doppelbuilder
 
+import android.content.Context
 import android.view.View
 import makes.flint.doppel.doppelState.backgroundproviders.DoppelBackgroundProvider
 import makes.flint.doppel.doppelState.doppelbuilder.configuration.DoppelConfiguration
@@ -7,9 +8,9 @@ import makes.flint.doppel.doppelState.doppelbuilder.configuration.DoppelConfigur
 /**
  * DoppelConfigurationBuilder
  */
-class DoppelConfigurationBuilder {
+class DoppelConfigurationBuilder(context: Context) {
 
-    private val configuration = DoppelConfiguration()
+    private val configuration = DoppelConfiguration(context)
 
     fun <T : View> targetSpecificViewTypes(vararg viewTypes: Class<out T>): DoppelConfigurationBuilder {
         configuration.viewTypeList = viewTypes.toList()
