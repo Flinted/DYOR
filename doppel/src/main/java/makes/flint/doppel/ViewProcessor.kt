@@ -1,4 +1,4 @@
-package makes.flint.doppel.doppelState
+package makes.flint.doppel
 
 /**
  * ViewProcessor

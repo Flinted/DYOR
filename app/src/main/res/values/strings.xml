@@ -25,4 +25,11 @@
         <item>Target EditTexts</item>
         <item>Target Images</item>
     </string-array>
+
+    <string-array name="scope">
+        <item>Both Cards</item>
+        <item>Profile Card</item>
+        <item>Order Card</item>
+        <item>Profile Card and Order Info</item>
+    </string-array>
 </resources>

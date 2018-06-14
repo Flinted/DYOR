@@ -1,20 +1,20 @@
-package makes.flint.doppel.doppelState
+package makes.flint.doppel
 
 import android.content.Context
 import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
-import makes.flint.doppel.doppelState.doppelbuilder.configuration.DoppelConfigurable
-import makes.flint.doppel.doppelState.doppelbuilder.configuration.DoppelConfiguration
 import makes.flint.doppel.doppelState.state.ViewState
 import makes.flint.doppel.doppelState.state.ViewStateFactory
 import makes.flint.doppel.doppelState.state.overridedimensions.DoppelOverride
+import makes.flint.doppel.doppelbuilder.configuration.DoppelConfigurable
+import makes.flint.doppel.doppelbuilder.configuration.DoppelConfiguration
 import java.lang.ref.WeakReference
 
 /**
  * Doppel
  */
-class Doppel(context: Context, private val configuration: DoppelConfigurable = DoppelConfiguration(context), vararg parents: View) {
+class Doppel(context: Context, vararg parents: View, private val configuration: DoppelConfigurable = DoppelConfiguration(context)) {
 
     var active = false
         private set
@@ -116,7 +116,7 @@ class Doppel(context: Context, private val configuration: DoppelConfigurable = D
     }
 
     private fun processParentViews() {
-        parentViews.forEach {parentHolder ->
+        parentViews.forEach { parentHolder ->
             val parent = parentHolder.get() ?: return@forEach
             val startingLayer = processParentView(parent)
             byLayer(parent, startingLayer)
@@ -124,8 +124,8 @@ class Doppel(context: Context, private val configuration: DoppelConfigurable = D
     }
 
     private fun findViewById(id: Int): View? {
-        parentViews.forEach {view ->
-            val view =  view.get()?.findViewById<View>(id)
+        parentViews.forEach { view ->
+            val view = view.get()?.findViewById<View>(id)
             view ?: return@forEach
             return view
         }

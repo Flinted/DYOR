@@ -184,12 +184,36 @@
                         android:layout_margin="8dp"
                         android:src="@drawable/ic_camera_alt_black_24dp"
                         app:fabSize="mini"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent" />
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/order_info_card"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="4dp"
+                        app:cardBackgroundColor="@color/orange6_doppel"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/last_order">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="8dp"
+                            android:textStyle="bold|italic"
+                            android:text="Made Up Sandwich Shop" />
+
+                    </android.support.v7.widget.CardView>
                 </android.support.constraint.ConstraintLayout>
             </android.support.v7.widget.CardView>
         </android.support.constraint.ConstraintLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="6dp"
+            android:layout_marginBottom="4dp"
+            android:background="@color/gray5_doppel"
+            app:layout_constraintBottom_toTopOf="@id/controls"/>
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/controls"
@@ -209,8 +233,9 @@
             <NumberPicker
                 android:id="@+id/minAlpha"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="140dp"
                 android:layout_margin="16dp"
+                android:descendantFocusability="blocksDescendants"
                 android:padding="4dp"
                 app:layout_constraintBottom_toTopOf="@id/color_select_spinner"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -227,8 +252,9 @@
             <NumberPicker
                 android:id="@+id/maxAlpha"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="140dp"
                 android:layout_margin="16dp"
+                android:descendantFocusability="blocksDescendants"
                 android:padding="4dp"
                 app:layout_constraintBottom_toTopOf="@id/color_select_spinner"
                 app:layout_constraintStart_toEndOf="@id/minAlpha" />
@@ -245,8 +271,9 @@
             <NumberPicker
                 android:id="@+id/speed"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="140dp"
                 android:layout_margin="16dp"
+                android:descendantFocusability="blocksDescendants"
                 android:padding="4dp"
                 app:layout_constraintBottom_toTopOf="@id/color_select_spinner"
                 app:layout_constraintEnd_toStartOf="@id/radius" />
@@ -263,8 +290,9 @@
             <NumberPicker
                 android:id="@+id/radius"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="140dp"
                 android:layout_margin="16dp"
+                android:descendantFocusability="blocksDescendants"
                 android:padding="4dp"
                 app:layout_constraintBottom_toTopOf="@id/color_select_spinner"
                 app:layout_constraintEnd_toEndOf="parent" />
@@ -281,13 +309,14 @@
 
             <Spinner
                 android:id="@+id/color_select_spinner"
-                android:layout_width="0dp"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
+                android:layout_margin="4dp"
+                android:background="@color/light_green6_doppel"
                 android:entries="@array/colours"
+                android:padding="8dp"
                 app:layout_constraintBottom_toTopOf="@id/type_select_spinner"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/color_label" />
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <TextView
                 android:id="@+id/target_label"
@@ -301,20 +330,42 @@
 
             <Spinner
                 android:id="@+id/type_select_spinner"
-                android:layout_width="0dp"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
+                android:layout_margin="4dp"
+                android:background="@color/light_green6_doppel"
                 android:entries="@array/doppelType"
+                android:padding="8dp"
+                app:layout_constraintBottom_toTopOf="@id/scope_select_spinner"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <TextView
+                android:id="@+id/target_scope"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="Scope: "
+                app:layout_constraintBottom_toBottomOf="@id/scope_select_spinner"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/scope_select_spinner" />
+
+            <Spinner
+                android:id="@+id/scope_select_spinner"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:background="@color/light_green6_doppel"
+                android:entries="@array/scope"
+                android:padding="8dp"
                 app:layout_constraintBottom_toTopOf="@id/toggle_button"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/color_select_spinner" />
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <ToggleButton
                 android:id="@+id/toggle_button"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_margin="8dp"
+                android:layout_height="50dp"
                 android:background="@color/colorPrimary"
+                android:textColor="@color/colorAccent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
         </android.support.constraint.ConstraintLayout>

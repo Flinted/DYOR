@@ -9,10 +9,11 @@ import android.support.v7.widget.AppCompatTextView
 import android.view.View
 import android.widget.AdapterView
 import android.widget.Toast
-import makes.flint.doppel.doppelState.Doppel
-import makes.flint.doppel.doppelState.backgroundproviders.DoppelColorDrawablesProvider
-import makes.flint.doppel.doppelState.backgroundproviders.backgroundconvenience.DoppelColors
-import makes.flint.doppel.doppelState.doppelbuilder.DoppelConfigurationBuilder
+import makes.flint.doppel.Doppel
+import makes.flint.doppel.backgroundproviders.DoppelColorDrawablesProvider
+import makes.flint.doppel.backgroundproviders.backgroundconvenience.DoppelColors
+import makes.flint.doppel.doppelbuilder.DoppelConfigurationBuilder
+import makes.flint.doppel.doppelbuilder.configuration.DoppelConfiguration
 import makes.flint.dyor.R
 import makes.flint.dyor.base.BaseActivity
 import makes.flint.dyor.databinding.ActivityDeckBinding
@@ -29,10 +30,10 @@ class DeckActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        doppelSettings = DoppelSettings(this)
 
         deckViewModel = getViewModelComponent().provideDeckViewModel()
         val binding: ActivityDeckBinding = DataBindingUtil.setContentView(this, R.layout.activity_deck)
+        doppelSettings = DoppelSettings(this, binding)
         binding.viewModel = deckViewModel
         binding.executePendingBindings()
         setAlphaListeners(binding)
@@ -48,7 +49,7 @@ class DeckActivity : BaseActivity() {
 
     private fun onToggleChanged(binding: ActivityDeckBinding) {
         doppel ?: let {
-            createDoppelInstanceForSettings(binding)
+            createDoppelInstanceForSettings()
             doppel?.on()
             return
         }
@@ -70,6 +71,13 @@ class DeckActivity : BaseActivity() {
 
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 doppelSettings.setType(context, binding.typeSelectSpinner.selectedItem.toString())
+            }
+        }
+        binding.scopeSelectSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(p0: AdapterView<*>?) {}
+
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                doppelSettings.setScope(context, binding.scopeSelectSpinner.selectedItem.toString(), binding)
             }
         }
     }
@@ -117,7 +125,13 @@ class DeckActivity : BaseActivity() {
     }
 
 
-    private fun createDoppelInstanceForSettings(binding: ActivityDeckBinding) {
+    private fun createDoppelInstanceForSettings() {
+        val configuration = makeDoppelConfiguration()
+        doppel = Doppel(this, configuration, *doppelSettings.scope)
+        doppel?.excludeViewsById(R.id.toggle_button)
+    }
+
+    private fun makeDoppelConfiguration(): DoppelConfiguration {
         val colorDrawablesProvider = DoppelColorDrawablesProvider(this, doppelSettings.colors)
         colorDrawablesProvider.setAnimationSpeed(doppelSettings.speed)
         colorDrawablesProvider.setMinAlpha(doppelSettings.minAlpha)
@@ -126,14 +140,15 @@ class DeckActivity : BaseActivity() {
         val configurationBuilder = DoppelConfigurationBuilder(this)
                 .withBackgroundProvider(colorDrawablesProvider)
         when {
-            doppelSettings.type.isEmpty() -> { }
+            doppelSettings.type.isEmpty() -> {
+            }
             else -> configurationBuilder.targetSpecificViewTypes(*doppelSettings.getTypes<View>())
         }
-        doppel = Doppel(this, configurationBuilder.build(), binding.testOrderCard, binding.testUserProfileCard)
+        return configurationBuilder.build()
     }
 }
 
-private class DoppelSettings(context: Context) {
+private class DoppelSettings(context: Context, binding: ActivityDeckBinding) {
 
     var colors = DoppelColors.GRAYS(context)
     var type: Array<Class<*>> = arrayOf()
@@ -141,6 +156,7 @@ private class DoppelSettings(context: Context) {
     var maxAlpha = 1f
     var speed = 1000L
     var radius = 0f
+    var scope: Array<View> = arrayOf(binding.testUserProfileCard, binding.testOrderCard)
 
     fun setColors(context: Context, value: String) {
         colors = when (value) {
@@ -174,5 +190,15 @@ private class DoppelSettings(context: Context) {
 
     fun <T : View> getTypes(): Array<Class<out T>> {
         return type as Array<Class<out T>>
+    }
+
+    fun setScope(context: Context, value: String, binding: ActivityDeckBinding) {
+        scope = when (value) {
+            "Order Card" -> arrayOf(binding.testOrderCard)
+            "Profile Card" -> arrayOf(binding.testUserProfileCard)
+            "Profile Card and Order Info" -> arrayOf(binding.testUserProfileCard, binding.orderInfoCard)
+            "Entire Screen" -> arrayOf(binding.fullLayout)
+            else -> arrayOf(binding.testOrderCard, binding.testUserProfileCard)
+        }
     }
 }
