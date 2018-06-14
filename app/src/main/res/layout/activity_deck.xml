@@ -154,7 +154,7 @@
                         android:id="@+id/recent_orders"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="4dp"
+                        android:layout_margin="12dp"
                         android:text="Your Recent Orders"
                         android:textSize="16sp"
                         android:textStyle="bold"
@@ -165,6 +165,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="4dp"
+                        android:layout_marginEnd="0dp"
                         android:text="Your Last Order:"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/recent_orders" />
@@ -174,6 +175,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="4dp"
+                        android:layout_marginStart="0dp"
                         android:text="02/01/2011"
                         app:layout_constraintStart_toEndOf="@id/last_order"
                         app:layout_constraintTop_toBottomOf="@id/recent_orders" />
@@ -200,8 +202,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="8dp"
-                            android:textStyle="bold|italic"
-                            android:text="Made Up Sandwich Shop" />
+                            android:text="Made Up Sandwich Shop"
+                            android:textStyle="bold|italic" />
 
                     </android.support.v7.widget.CardView>
                 </android.support.constraint.ConstraintLayout>
@@ -213,7 +215,7 @@
             android:layout_height="6dp"
             android:layout_marginBottom="4dp"
             android:background="@color/gray5_doppel"
-            app:layout_constraintBottom_toTopOf="@id/controls"/>
+            app:layout_constraintBottom_toTopOf="@id/controls" />
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/controls"

@@ -11,26 +11,32 @@ abstract class BaseViewState<T : View>(view: T) : ViewState<T> {
 
     override var view = WeakReference(view)
     override val originallyEnabled = view.isEnabled
+    private val originalPaddingTop = view.paddingTop
+    private val originalPaddingBottom = view.paddingBottom
+    private val originalPaddingLeft = view.paddingLeft
+    private val originalPaddingRight = view.paddingRight
 
     private var overrideDimensions: OverrideDimensions? = null
 
     override fun doppel() {
         val view = view.get() ?: return
         view.isEnabled = false
-        val dimensions = overrideDimensions ?: return
         val params = view.layoutParams
-        params.height = dimensions.getOverrideStateHeight()
-        params.width = dimensions.getOverrideStateWidth()
+        overrideDimensions?.let {
+            params.height = it.getOverrideStateHeight()
+            params.width = it.getOverrideStateWidth()
+        }
         view.layoutParams = params
     }
 
     override fun restore() {
         val view = view.get() ?: return
         view.isEnabled = originallyEnabled
-        val dimensions = overrideDimensions ?: return
         val params = view.layoutParams
-        params.height = dimensions.originalHeight
-        params.width = dimensions.originalWidth
+        overrideDimensions?.let {
+            params.height = it.originalHeight
+            params.width = it.originalWidth
+        }
         view.layoutParams = params
     }
 

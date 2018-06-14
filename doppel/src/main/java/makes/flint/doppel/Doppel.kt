@@ -1,6 +1,5 @@
 package makes.flint.doppel
 
-import android.content.Context
 import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
@@ -8,20 +7,18 @@ import makes.flint.doppel.doppelState.state.ViewState
 import makes.flint.doppel.doppelState.state.ViewStateFactory
 import makes.flint.doppel.doppelState.state.overridedimensions.DoppelOverride
 import makes.flint.doppel.doppelbuilder.configuration.DoppelConfigurable
-import makes.flint.doppel.doppelbuilder.configuration.DoppelConfiguration
 import java.lang.ref.WeakReference
 
 /**
  * Doppel
  */
-class Doppel(context: Context, vararg parents: View, private val configuration: DoppelConfigurable = DoppelConfiguration(context)) {
+class Doppel(private val configuration: DoppelConfigurable, vararg parents: View) {
 
     var active = false
         private set
 
     private var views: MutableMap<View, ViewState<*>> = mutableMapOf()
     private var parentViews: List<WeakReference<View>> = listOf()
-
 
     init {
         parentViews = parents.map { WeakReference(it) }
@@ -35,6 +32,9 @@ class Doppel(context: Context, vararg parents: View, private val configuration: 
         active = true
         views.values.forEach { state ->
             state.doppel()
+        }
+        parentViews.forEach {
+            it.get()?.parent?.recomputeViewAttributes(it.get()!!)
         }
     }
 

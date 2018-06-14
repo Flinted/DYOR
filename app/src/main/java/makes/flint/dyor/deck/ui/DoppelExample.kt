@@ -20,17 +20,18 @@ class DoppelExample : Activity() {
 
     private val view1 = layoutInflater.inflate(R.layout.activity_deck, null)
     private val view2 = layoutInflater.inflate(R.layout.deck_item, null)
+    private val injectedConfiguration = DoppelConfigurationBuilder(this).build()
 
     // This makes a default instance of Doppel for convenience. This has default settings for colours,
     // targeting, animation etc.
     private fun doppelBasic() {
-        val doppel = Doppel(this, view1)
+        val doppel = Doppel(injectedConfiguration, view1)
         doppel.on()
     }
 
     // You can pass any number of views to Doppel.
     private fun doppelMultipleViews() {
-        val doppel = Doppel(this, view1, view2)
+        val doppel = Doppel(injectedConfiguration, view1, view2)
         doppel.on()
     }
 
@@ -40,7 +41,7 @@ class DoppelExample : Activity() {
         val override1 = DoppelOverride(25, 25, R.id.last_order, R.id.last_order_date)
         val override2 = DoppelOverride(null, 70, R.id.test_name_input)
 
-        val doppel = Doppel(this, view1, view2)
+        val doppel = Doppel(injectedConfiguration, view1, view2)
         doppel.addOverrides(override1, override2)
         doppel.excludeViewsById(R.id.test_image_profile, R.id.test_image_overlay)
         doppel.on()
@@ -59,14 +60,14 @@ class DoppelExample : Activity() {
                 .targetSpecificViewTypes(AppCompatImageView::class.java, AppCompatTextView::class.java)
                 .build()
 
-        val doppel = Doppel(this, view1, configuration = doppelConfiguration)
+        val doppel = Doppel(doppelConfiguration, view1)
         doppel.on()
     }
 
     // Provide a different Background Provider.  Doppel includes two as standard. One that takes a
     // list of colours and chooses background by layer.  Another that allows you to set colours by view type.
     // You can adjust Animation Speed, MinAlpha, MaxAlpha and CornerRadius for both providers.
-    // This provider is then set on a defualt, or customised DoppelConfigurable.
+    // This provider is then set on a default, or customised DoppelConfigurable.
     private fun doppelWithCustomBackgroundProvider() {
         val colors = resources.getIntArray(R.array.mixed_doppel).toList()
 
@@ -80,10 +81,12 @@ class DoppelExample : Activity() {
                 .withBackgroundProvider(backgroundProvider)
                 .build()
 
-        val doppel = Doppel(this, view1, configuration = doppelConfiguration)
+        val doppel = Doppel(doppelConfiguration, view1)
         doppel.on()
     }
 
+    // This is the secondary build in view provider.
+    // You can set colours for multiple view types, and have to provide a default for other views.
     private fun doppelWithSecondCustomBackgroundProvider() {
         val defaultColor = ContextCompat.getColor(this, R.color.colorPrimaryDark)
         val textViewColorHolder = DoppelViewTypeColor(this, R.color.colorAccent, AppCompatTextView::class.java, AppCompatEditText::class.java)
@@ -100,7 +103,7 @@ class DoppelExample : Activity() {
                 .withBackgroundProvider(backgroundProvider)
                 .build()
 
-        val doppel = Doppel(this, view1, configuration = doppelConfiguration)
+        val doppel = Doppel(doppelConfiguration, view1)
         doppel.on()
     }
 }

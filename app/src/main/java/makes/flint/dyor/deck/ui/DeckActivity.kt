@@ -124,10 +124,9 @@ class DeckActivity : BaseActivity() {
         binding.maxAlpha.value = 10
     }
 
-
     private fun createDoppelInstanceForSettings() {
         val configuration = makeDoppelConfiguration()
-        doppel = Doppel(this, configuration, *doppelSettings.scope)
+        doppel = Doppel(configuration, *doppelSettings.scope)
         doppel?.excludeViewsById(R.id.toggle_button)
     }
 
@@ -137,6 +136,7 @@ class DeckActivity : BaseActivity() {
         colorDrawablesProvider.setMinAlpha(doppelSettings.minAlpha)
         colorDrawablesProvider.setMaxAlpha(doppelSettings.maxAlpha)
         colorDrawablesProvider.setCornerRadius(doppelSettings.radius)
+        colorDrawablesProvider.setShrinkage(5)
         val configurationBuilder = DoppelConfigurationBuilder(this)
                 .withBackgroundProvider(colorDrawablesProvider)
         when {

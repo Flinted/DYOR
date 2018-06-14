@@ -14,11 +14,12 @@ class DoppelColorDrawablesProvider(context: Context, private val colors: List<In
     private var animationSpeed = 1000L
     private var minAlpha = 0.3f
     private var maxAlpha = 1f
+    private var shrinkage = 3
     private var radius = 0f
 
     override fun getBackgroundFor(view: View, layer: Int, depth: Int): Drawable {
         val color = getColorFor(view, layer, depth)
-        return DoppelColorDrawable(color, animationSpeed, minAlpha, maxAlpha, radius)
+        return DoppelColorDrawable(color, animationSpeed, minAlpha, maxAlpha, shrinkage, radius)
     }
 
     fun setAnimationSpeed(speedMs: Long) {
@@ -43,6 +44,10 @@ class DoppelColorDrawablesProvider(context: Context, private val colors: List<In
 
     fun setCornerRadius(radiusPixels: Float) {
         radius = radiusPixels
+    }
+
+    fun setShrinkage(shrinkagePercent: Int) {
+        shrinkage = shrinkagePercent
     }
 
     override fun getColorFor(view: View, layer: Int, depth: Int): Int {

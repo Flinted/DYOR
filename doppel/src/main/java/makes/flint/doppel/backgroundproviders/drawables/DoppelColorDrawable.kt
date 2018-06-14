@@ -1,6 +1,7 @@
 package makes.flint.doppel.backgroundproviders.drawables
 
 import android.graphics.drawable.GradientDrawable
+import android.graphics.drawable.LayerDrawable
 import android.view.View
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
@@ -13,11 +14,13 @@ class DoppelColorDrawable(val color: Int,
                           private val animationSpeed: Long,
                           private val minAlpha: Float,
                           private val maxAlpha: Float,
+                          shrinkage: Int,
                           radius: Float
-) : GradientDrawable(GradientDrawable.Orientation.BOTTOM_TOP, intArrayOf(color, color)), DoppelAnimatable {
+) : LayerDrawable(arrayOf(GradientDrawable(GradientDrawable.Orientation.BOTTOM_TOP, intArrayOf(color, color)))), DoppelAnimatable {
 
     init {
-        this.cornerRadius = radius
+        (getDrawable(0) as GradientDrawable).cornerRadius = radius
+        setLayerInset(0, shrinkage, shrinkage, shrinkage, shrinkage)
     }
 
     override fun start(view: View) {
