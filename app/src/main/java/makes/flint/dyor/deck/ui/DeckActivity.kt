@@ -2,6 +2,7 @@ package makes.flint.dyor.deck.ui
 
 import android.content.Context
 import android.databinding.DataBindingUtil
+import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.widget.AppCompatEditText
 import android.support.v7.widget.AppCompatImageView
@@ -80,6 +81,14 @@ class DeckActivity : BaseActivity() {
                 doppelSettings.setScope(context, binding.scopeSelectSpinner.selectedItem.toString(), binding)
             }
         }
+        binding.strokeSelectSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(p0: AdapterView<*>?) {}
+
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                doppelSettings.setStrokeColor(context, binding.strokeSelectSpinner.selectedItem.toString())
+            }
+
+        }
     }
 
     private fun setNumberListeners(binding: ActivityDeckBinding) {
@@ -88,19 +97,33 @@ class DeckActivity : BaseActivity() {
         binding.radius.setFormatter {
             (it * 10).toString()
         }
+        binding.shrinkage.minValue = 0
+        binding.shrinkage.maxValue = 40
+
         binding.speed.minValue = 0
         binding.speed.maxValue = 30
         binding.speed.setFormatter {
             (it * 100).toString()
         }
+        binding.strokeWidth.minValue = 0
+        binding.strokeWidth.maxValue = 20
+
         binding.radius.setOnValueChangedListener { numberPicker, old, new ->
             doppelSettings.radius = (new * 10).toFloat()
         }
         binding.speed.setOnValueChangedListener { numberPicker, old, new ->
             doppelSettings.speed = (new * 100).toLong()
         }
+        binding.shrinkage.setOnValueChangedListener { numberPicker, old, new ->
+            doppelSettings.shrinkage = new
+        }
+        binding.strokeWidth.setOnValueChangedListener { numberPicker, old, new ->
+            doppelSettings.strokeWidth = new
+        }
+        binding.shrinkage.value = 5
         binding.radius.value = 0
         binding.speed.value = 10
+        binding.strokeWidth.value = 0
     }
 
     private fun setAlphaListeners(binding: ActivityDeckBinding) {
@@ -136,7 +159,8 @@ class DeckActivity : BaseActivity() {
         colorDrawablesProvider.setMinAlpha(doppelSettings.minAlpha)
         colorDrawablesProvider.setMaxAlpha(doppelSettings.maxAlpha)
         colorDrawablesProvider.setCornerRadius(doppelSettings.radius)
-        colorDrawablesProvider.setShrinkage(5)
+        colorDrawablesProvider.setStroke(doppelSettings.strokeWidth, doppelSettings.strokeColor)
+        colorDrawablesProvider.setShrinkage(doppelSettings.shrinkage)
         val configurationBuilder = DoppelConfigurationBuilder(this)
                 .withBackgroundProvider(colorDrawablesProvider)
         when {
@@ -156,6 +180,9 @@ private class DoppelSettings(context: Context, binding: ActivityDeckBinding) {
     var maxAlpha = 1f
     var speed = 1000L
     var radius = 0f
+    var shrinkage = 5
+    var strokeWidth = 3
+    var strokeColor = Color.BLACK
     var scope: Array<View> = arrayOf(binding.testUserProfileCard, binding.testOrderCard)
 
     fun setColors(context: Context, value: String) {
@@ -190,6 +217,18 @@ private class DoppelSettings(context: Context, binding: ActivityDeckBinding) {
 
     fun <T : View> getTypes(): Array<Class<out T>> {
         return type as Array<Class<out T>>
+    }
+
+    fun setStrokeColor(context: Context, value: String) {
+        strokeColor = when (value) {
+            "Black" -> Color.BLACK
+            "White" -> Color.WHITE
+            "Green" -> Color.GREEN
+            "Yellow" -> Color.YELLOW
+            "Red" -> Color.YELLOW
+            "Blue" -> Color.BLUE
+            else -> Color.TRANSPARENT
+        }
     }
 
     fun setScope(context: Context, value: String, binding: ActivityDeckBinding) {

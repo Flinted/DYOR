@@ -154,7 +154,7 @@
                         android:id="@+id/recent_orders"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="12dp"
+                        android:layout_margin="4dp"
                         android:text="Your Recent Orders"
                         android:textSize="16sp"
                         android:textStyle="bold"
@@ -180,15 +180,6 @@
                         app:layout_constraintStart_toEndOf="@id/last_order"
                         app:layout_constraintTop_toBottomOf="@id/recent_orders" />
 
-                    <android.support.design.widget.FloatingActionButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        android:src="@drawable/ic_camera_alt_black_24dp"
-                        app:fabSize="mini"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
                     <android.support.v7.widget.CardView
                         android:id="@+id/order_info_card"
                         android:layout_width="match_parent"
@@ -198,12 +189,26 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/last_order">
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_margin="8dp"
-                            android:text="Made Up Sandwich Shop"
-                            android:textStyle="bold|italic" />
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:background="@color/gray6_doppel"
+                                android:src="@drawable/ic_local_dining_black_24dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="Made Up Sandwich Shop"
+                                android:textStyle="bold|italic" />
+
+
+                        </LinearLayout>
 
                     </android.support.v7.widget.CardView>
                 </android.support.constraint.ConstraintLayout>
@@ -234,11 +239,11 @@
 
             <NumberPicker
                 android:id="@+id/minAlpha"
-                android:layout_width="wrap_content"
+                android:layout_width="55dp"
                 android:layout_height="140dp"
-                android:layout_margin="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
                 android:descendantFocusability="blocksDescendants"
-                android:padding="4dp"
                 app:layout_constraintBottom_toTopOf="@id/color_select_spinner"
                 app:layout_constraintStart_toStartOf="parent" />
 
@@ -253,11 +258,11 @@
 
             <NumberPicker
                 android:id="@+id/maxAlpha"
-                android:layout_width="wrap_content"
+                android:layout_width="55dp"
                 android:layout_height="140dp"
-                android:layout_margin="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
                 android:descendantFocusability="blocksDescendants"
-                android:padding="4dp"
                 app:layout_constraintBottom_toTopOf="@id/color_select_spinner"
                 app:layout_constraintStart_toEndOf="@id/minAlpha" />
 
@@ -272,11 +277,49 @@
 
             <NumberPicker
                 android:id="@+id/speed"
-                android:layout_width="wrap_content"
+                android:layout_width="55dp"
                 android:layout_height="140dp"
-                android:layout_margin="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
                 android:descendantFocusability="blocksDescendants"
-                android:padding="4dp"
+                app:layout_constraintBottom_toTopOf="@id/color_select_spinner"
+                app:layout_constraintStart_toEndOf="@id/maxAlpha" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Shrinkage"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toTopOf="@id/shrinkage"
+                app:layout_constraintEnd_toEndOf="@id/shrinkage"
+                app:layout_constraintStart_toStartOf="@id/shrinkage" />
+
+            <NumberPicker
+                android:id="@+id/shrinkage"
+                android:layout_width="55dp"
+                android:layout_height="140dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:descendantFocusability="blocksDescendants"
+                app:layout_constraintBottom_toTopOf="@id/color_select_spinner"
+                app:layout_constraintEnd_toStartOf="@id/stroke_width" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Stroke Width"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toTopOf="@id/stroke_width"
+                app:layout_constraintEnd_toEndOf="@id/stroke_width"
+                app:layout_constraintStart_toStartOf="@id/stroke_width" />
+
+            <NumberPicker
+                android:id="@+id/stroke_width"
+                android:layout_width="55dp"
+                android:layout_height="140dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:descendantFocusability="blocksDescendants"
                 app:layout_constraintBottom_toTopOf="@id/color_select_spinner"
                 app:layout_constraintEnd_toStartOf="@id/radius" />
 
@@ -291,11 +334,11 @@
 
             <NumberPicker
                 android:id="@+id/radius"
-                android:layout_width="wrap_content"
+                android:layout_width="55dp"
                 android:layout_height="140dp"
-                android:layout_margin="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
                 android:descendantFocusability="blocksDescendants"
-                android:padding="4dp"
                 app:layout_constraintBottom_toTopOf="@id/color_select_spinner"
                 app:layout_constraintEnd_toEndOf="parent" />
 
@@ -358,6 +401,27 @@
                 android:layout_margin="4dp"
                 android:background="@color/light_green6_doppel"
                 android:entries="@array/scope"
+                android:padding="8dp"
+                app:layout_constraintBottom_toTopOf="@id/stroke_select_spinner"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <TextView
+                android:id="@+id/stroke_color"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="Stroke: "
+                app:layout_constraintBottom_toBottomOf="@id/stroke_select_spinner"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/stroke_select_spinner" />
+
+            <Spinner
+                android:id="@+id/stroke_select_spinner"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:background="@color/light_green6_doppel"
+                android:entries="@array/stroke"
                 android:padding="8dp"
                 app:layout_constraintBottom_toTopOf="@id/toggle_button"
                 app:layout_constraintEnd_toEndOf="parent" />

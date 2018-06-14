@@ -14,13 +14,17 @@ class DoppelColorDrawable(val color: Int,
                           private val animationSpeed: Long,
                           private val minAlpha: Float,
                           private val maxAlpha: Float,
+                          strokeThickness: Int,
+                          strokeColor: Int,
                           shrinkage: Int,
                           radius: Float
 ) : LayerDrawable(arrayOf(GradientDrawable(GradientDrawable.Orientation.BOTTOM_TOP, intArrayOf(color, color)))), DoppelAnimatable {
 
     init {
         (getDrawable(0) as GradientDrawable).cornerRadius = radius
+        (getDrawable(0) as GradientDrawable).setStroke(strokeThickness, strokeColor)
         setLayerInset(0, shrinkage, shrinkage, shrinkage, shrinkage)
+        invalidateSelf()
     }
 
     override fun start(view: View) {
