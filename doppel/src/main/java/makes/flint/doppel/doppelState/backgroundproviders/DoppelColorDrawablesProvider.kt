@@ -11,21 +11,14 @@ import makes.flint.doppel.doppelState.backgroundproviders.drawables.DoppelColorD
  */
 class DoppelColorDrawablesProvider(context: Context, private val colors: List<Int> = DoppelColors.GRAYS(context)) : DoppelBackgroundProvider {
 
-    private var animationSpeed: Long = 1000
-    private var minAlpha: Float = 0.3f
-    private var maxAlpha: Float = 1f
-    private var radius: Float = 0f
+    private var animationSpeed = 1000L
+    private var minAlpha = 0.3f
+    private var maxAlpha = 1f
+    private var radius = 0f
 
     override fun getBackgroundFor(view: View, layer: Int, depth: Int): Drawable {
         val color = getColorFor(layer, depth)
         return DoppelColorDrawable(color, animationSpeed, minAlpha, maxAlpha, radius)
-    }
-
-    private fun getColorFor(layer: Int, depth: Int): Int {
-        if (layer > colors.size) {
-            return colors.first()
-        }
-        return colors[layer - 1]
     }
 
     fun setAnimationSpeed(speedMs: Long) {
@@ -50,5 +43,12 @@ class DoppelColorDrawablesProvider(context: Context, private val colors: List<In
 
     fun setCornerRadius(radiusPixels: Float) {
         radius = radiusPixels
+    }
+
+    private fun getColorFor(layer: Int, depth: Int): Int {
+        if (layer > colors.size) {
+            return colors.first()
+        }
+        return colors[layer - 1]
     }
 }

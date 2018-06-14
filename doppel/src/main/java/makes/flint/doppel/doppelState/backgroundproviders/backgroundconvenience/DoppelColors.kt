@@ -7,6 +7,7 @@ import makes.flint.doppel.R
  * DoppelColors
  */
 object DoppelColors {
+
     fun GRAYS(context:Context) = context.resources.getIntArray(R.array.grays_doppel).toList()
     fun GRAYS_INVERT(context:Context) = GRAYS(context).reversed()
     fun BLUEGRAYS(context:Context) = context.resources.getIntArray(R.array.bluegrays_doppel).toList()

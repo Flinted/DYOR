@@ -55,9 +55,9 @@ class Doppel(parent: View,
 
     fun targetViewsById(vararg ids: Int) {
         val targetedMap: MutableMap<View, ViewState<*>> = mutableMapOf()
-        for (id in ids) {
-            val view = parentView?.findViewById<View>(id) ?: continue
-            val state = views[view] ?: continue
+        ids.forEach { id ->
+            val view = parentView?.findViewById<View>(id) ?: return@forEach
+            val state = views[view] ?: return@forEach
             targetedMap[view] = state
         }
         views = targetedMap
