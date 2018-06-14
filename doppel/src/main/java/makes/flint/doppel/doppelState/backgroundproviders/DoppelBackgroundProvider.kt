@@ -9,4 +9,5 @@ import android.view.View
 interface DoppelBackgroundProvider {
 
     fun getBackgroundFor(view: View, layer: Int, depth: Int): Drawable
+    fun getColorFor(view: View, layer: Int, depth: Int): Int
 }

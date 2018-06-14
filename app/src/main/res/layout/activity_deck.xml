@@ -45,7 +45,6 @@
                         android:id="@+id/test_image_profile_container"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
@@ -69,6 +68,26 @@
                             android:src="@drawable/ic_camera_alt_black_24dp" />
                     </RelativeLayout>
 
+
+                    <TextView
+                        android:id="@+id/points_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:text="Points:"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/test_image_profile_container" />
+
+                    <TextView
+                        android:id="@+id/points"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignEnd="@id/points_title"
+                        android:layout_margin="4dp"
+                        android:text="500"
+                        app:layout_constraintStart_toEndOf="@id/points_title"
+                        app:layout_constraintTop_toBottomOf="@id/test_image_profile_container" />
+
                     <EditText
                         android:id="@+id/test_name_input"
                         android:layout_width="0dp"
@@ -90,12 +109,29 @@
                         app:layout_constraintTop_toBottomOf="@id/test_name_input" />
 
                     <TextView
+                        android:id="@+id/member_since"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="4dp"
                         android:text="Member Since: 16/04/2017"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent" />
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/test_user_type" />
+
+                    <TextView
+                        android:id="@+id/address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:text="Address: 14 MadeUp Street, MadeUp City"
+                        app:layout_constraintTop_toBottomOf="@id/points_title" />
+
+                    <TextView
+                        android:id="@+id/phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:text="Phone: 01234 567 890"
+                        app:layout_constraintTop_toBottomOf="@id/address" />
 
                 </android.support.constraint.ConstraintLayout>
             </android.support.v7.widget.CardView>
@@ -112,14 +148,16 @@
                     android:id="@+id/test_order_container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="8dp">
+                    android:layout_margin="8dp">
 
                     <TextView
                         android:id="@+id/recent_orders"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="4dp"
                         android:text="Your Recent Orders"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
@@ -136,22 +174,19 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="4dp"
-                        app:layout_constraintEnd_toEndOf="parent"
+                        android:text="02/01/2011"
+                        app:layout_constraintStart_toEndOf="@id/last_order"
                         app:layout_constraintTop_toBottomOf="@id/recent_orders" />
 
-                    <android.support.v7.widget.RecyclerView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintTop_toBottomOf="@id/last_order" />
-
                     <android.support.design.widget.FloatingActionButton
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_margin="8dp"
-                        android:background="@color/colorPrimaryDark"
                         android:src="@drawable/ic_camera_alt_black_24dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="parent" />
+                        app:fabSize="mini"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
                 </android.support.constraint.ConstraintLayout>
             </android.support.v7.widget.CardView>
         </android.support.constraint.ConstraintLayout>
@@ -175,7 +210,7 @@
                 android:id="@+id/minAlpha"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                android:layout_margin="16dp"
                 android:padding="4dp"
                 app:layout_constraintBottom_toTopOf="@id/color_select_spinner"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -193,7 +228,7 @@
                 android:id="@+id/maxAlpha"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                android:layout_margin="16dp"
                 android:padding="4dp"
                 app:layout_constraintBottom_toTopOf="@id/color_select_spinner"
                 app:layout_constraintStart_toEndOf="@id/minAlpha" />
@@ -211,7 +246,7 @@
                 android:id="@+id/speed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                android:layout_margin="16dp"
                 android:padding="4dp"
                 app:layout_constraintBottom_toTopOf="@id/color_select_spinner"
                 app:layout_constraintEnd_toStartOf="@id/radius" />
@@ -229,7 +264,7 @@
                 android:id="@+id/radius"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                android:layout_margin="16dp"
                 android:padding="4dp"
                 app:layout_constraintBottom_toTopOf="@id/color_select_spinner"
                 app:layout_constraintEnd_toEndOf="parent" />

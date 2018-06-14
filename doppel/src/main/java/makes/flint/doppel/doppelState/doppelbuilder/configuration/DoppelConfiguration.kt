@@ -27,4 +27,5 @@ class DoppelConfiguration internal constructor(context:Context) : DoppelConfigur
     }
 
     override fun getBackgroundFor(view: View, layer: Int) = backgroundProvider.getBackgroundFor(view, layer, depth)
+    override fun getColorFor(view: View, layer: Int): Int = backgroundProvider.getColorFor(view,layer,depth)
 }

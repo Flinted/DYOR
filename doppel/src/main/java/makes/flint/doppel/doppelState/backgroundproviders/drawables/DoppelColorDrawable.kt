@@ -9,7 +9,7 @@ import android.view.animation.Animation
 /**
  * DoppelColorDrawable
  */
-class DoppelColorDrawable(color: Int,
+class DoppelColorDrawable(val color: Int,
                           private val animationSpeed: Long,
                           private val minAlpha: Float,
                           private val maxAlpha: Float,

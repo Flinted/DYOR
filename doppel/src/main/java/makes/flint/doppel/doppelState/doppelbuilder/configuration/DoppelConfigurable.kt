@@ -13,4 +13,5 @@ interface DoppelConfigurable {
 
     fun validate(view: View): Boolean
     fun getBackgroundFor(view: View, layer: Int): Drawable
+    fun getColorFor(view: View, layer: Int): Int
 }

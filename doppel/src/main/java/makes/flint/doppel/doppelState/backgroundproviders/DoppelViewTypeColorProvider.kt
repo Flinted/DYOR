@@ -8,7 +8,7 @@ import makes.flint.doppel.doppelState.backgroundproviders.drawables.DoppelColorD
 /**
  * DoppelViewTypeColorProvider
  */
-class DoppelViewTypeColorProvider(defaultColor: Int = Color.GRAY
+class DoppelViewTypeColorProvider(private val defaultColor: Int = Color.GRAY
 ) : DoppelBackgroundProvider {
 
     private var animationSpeed: Long = 1000
@@ -23,6 +23,10 @@ class DoppelViewTypeColorProvider(defaultColor: Int = Color.GRAY
     override fun getBackgroundFor(view: View, layer: Int, depth: Int): Drawable {
         val color = map[view.javaClass] ?: return defaultDrawable.value
         return DoppelColorDrawable(color, animationSpeed, minAlpha, maxAlpha, radius)
+    }
+
+    override fun getColorFor(view: View, layer: Int, depth: Int): Int {
+        return map[view.javaClass] ?: return defaultColor
     }
 
     fun addViewTypeColors(vararg viewPairs: DoppelViewTypeColor<*>) {

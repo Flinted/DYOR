@@ -17,7 +17,7 @@ class DoppelColorDrawablesProvider(context: Context, private val colors: List<In
     private var radius = 0f
 
     override fun getBackgroundFor(view: View, layer: Int, depth: Int): Drawable {
-        val color = getColorFor(layer, depth)
+        val color = getColorFor(view, layer, depth)
         return DoppelColorDrawable(color, animationSpeed, minAlpha, maxAlpha, radius)
     }
 
@@ -45,7 +45,7 @@ class DoppelColorDrawablesProvider(context: Context, private val colors: List<In
         radius = radiusPixels
     }
 
-    private fun getColorFor(layer: Int, depth: Int): Int {
+    override fun getColorFor(view: View, layer: Int, depth: Int): Int {
         if (layer > colors.size) {
             return colors.first()
         }
