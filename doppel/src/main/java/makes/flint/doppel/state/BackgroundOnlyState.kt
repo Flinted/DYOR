@@ -2,7 +2,7 @@ package makes.flint.doppel.doppelState.state
 
 import android.graphics.drawable.Drawable
 import android.view.View
-import makes.flint.doppel.doppelState.backgroundproviders.drawables.DoppelAnimatable
+import makes.flint.doppel.backgroundproviders.drawables.DoppelAnimatable
 
 /**
  * BackgroundOnlyState
@@ -19,7 +19,6 @@ class BackgroundOnlyState(view: View,
         val view = view.get() ?: return
         view.background = background
         (view.background as? DoppelAnimatable)?.start(view)
-        view.isEnabled = false
     }
 
     override fun restore() {
@@ -28,6 +27,5 @@ class BackgroundOnlyState(view: View,
         val view = view.get() ?: return
         (view.background as? DoppelAnimatable)?.stop(view)
         view.background = originalBackground
-        view.isEnabled = originallyEnabled
     }
 }

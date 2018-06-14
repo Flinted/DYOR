@@ -3,7 +3,7 @@ package makes.flint.doppel.doppelState.state
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.widget.TextView
-import makes.flint.doppel.doppelState.backgroundproviders.drawables.DoppelAnimatable
+import makes.flint.doppel.backgroundproviders.drawables.DoppelAnimatable
 
 /**
  * TextViewState

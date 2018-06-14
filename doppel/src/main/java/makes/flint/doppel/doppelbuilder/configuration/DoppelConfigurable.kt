@@ -1,4 +1,4 @@
-package makes.flint.doppel.doppelState.doppelbuilder.configuration
+package makes.flint.doppel.doppelbuilder.configuration
 
 import android.graphics.drawable.Drawable
 import android.view.View

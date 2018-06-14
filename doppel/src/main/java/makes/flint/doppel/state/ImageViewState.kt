@@ -4,7 +4,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.widget.ImageView
-import makes.flint.doppel.doppelState.backgroundproviders.drawables.DoppelAnimatable
+import makes.flint.doppel.backgroundproviders.drawables.DoppelAnimatable
 
 /**
  * ImageViewState

@@ -1,10 +1,10 @@
-package makes.flint.doppel.doppelState.backgroundproviders
+package makes.flint.doppel.backgroundproviders
 
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.view.View
-import makes.flint.doppel.doppelState.backgroundproviders.backgroundconvenience.DoppelColors
-import makes.flint.doppel.doppelState.backgroundproviders.drawables.DoppelColorDrawable
+import makes.flint.doppel.backgroundproviders.backgroundconvenience.DoppelColors
+import makes.flint.doppel.backgroundproviders.drawables.DoppelColorDrawable
 
 /**
  * DoppelColorDrawablesProvider

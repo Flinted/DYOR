@@ -1,4 +1,4 @@
-package makes.flint.doppel.doppelState.backgroundproviders.backgroundconvenience
+package makes.flint.doppel.backgroundproviders.backgroundconvenience
 
 import android.content.Context
 import makes.flint.doppel.R

@@ -1,9 +1,9 @@
-package makes.flint.doppel.doppelState.doppelbuilder
+package makes.flint.doppel.doppelbuilder
 
 import android.content.Context
 import android.view.View
-import makes.flint.doppel.doppelState.backgroundproviders.DoppelBackgroundProvider
-import makes.flint.doppel.doppelState.doppelbuilder.configuration.DoppelConfiguration
+import makes.flint.doppel.backgroundproviders.DoppelBackgroundProvider
+import makes.flint.doppel.doppelbuilder.configuration.DoppelConfiguration
 
 /**
  * DoppelConfigurationBuilder

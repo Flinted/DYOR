@@ -4,7 +4,7 @@ import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
-import makes.flint.doppel.doppelState.doppelbuilder.configuration.DoppelConfigurable
+import makes.flint.doppel.doppelbuilder.configuration.DoppelConfigurable
 
 /**
  * ViewStateFactory

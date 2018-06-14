@@ -1,12 +1,12 @@
-package makes.flint.doppel.doppelState.backgroundproviders
+package makes.flint.doppel.backgroundproviders
 
 import android.content.Context
 import android.support.v4.content.ContextCompat
-import android.view.View
 
 /**
  * DoppelViewTypeColor
  */
-class DoppelViewTypeColor<T : View>(context: Context, colorId: Int, val viewType: Class<T>) {
+class DoppelViewTypeColor(context: Context, colorId: Int, vararg viewTypes: Class<*>) {
+    val viewTypes = viewTypes
     val color = ContextCompat.getColor(context, colorId)
 }

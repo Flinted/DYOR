@@ -1,4 +1,4 @@
-package makes.flint.doppel.doppelState.backgroundproviders
+package makes.flint.doppel.backgroundproviders
 
 import android.graphics.drawable.Drawable
 import android.view.View

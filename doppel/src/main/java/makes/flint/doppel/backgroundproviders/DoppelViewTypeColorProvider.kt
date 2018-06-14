@@ -1,9 +1,9 @@
-package makes.flint.doppel.doppelState.backgroundproviders
+package makes.flint.doppel.backgroundproviders
 
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.view.View
-import makes.flint.doppel.doppelState.backgroundproviders.drawables.DoppelColorDrawable
+import makes.flint.doppel.backgroundproviders.drawables.DoppelColorDrawable
 
 /**
  * DoppelViewTypeColorProvider
@@ -32,7 +32,9 @@ class DoppelViewTypeColorProvider(private val defaultColor: Int = Color.GRAY
     fun addViewTypeColors(vararg viewPairs: DoppelViewTypeColor<*>) {
         map.clear()
         viewPairs.forEach { viewTypeColor ->
-            map[viewTypeColor.viewType] = viewTypeColor.color
+            for (viewType in viewTypeColor.viewTypes) {
+                map[viewType] = viewTypeColor.color
+            }
         }
     }
 
