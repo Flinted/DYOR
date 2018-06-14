@@ -41,7 +41,6 @@ class DeckActivity : BaseActivity() {
         binding.toggleButton.setOnClickListener {
             onToggleChanged(binding)
         }
-
         binding.testImageProfile.setOnClickListener {
             Toast.makeText(this, "CLICKED", Toast.LENGTH_SHORT).show()
         }
@@ -73,7 +72,6 @@ class DeckActivity : BaseActivity() {
                 doppelSettings.setType(context, binding.typeSelectSpinner.selectedItem.toString())
             }
         }
-
     }
 
     private fun setNumberListeners(binding: ActivityDeckBinding) {
@@ -108,10 +106,10 @@ class DeckActivity : BaseActivity() {
         binding.maxAlpha.setFormatter {
             (it * 10).toString()
         }
-        binding.minAlpha.setOnValueChangedListener { numberPicker, old, new ->
+        binding.minAlpha.setOnValueChangedListener { _, _, new ->
             doppelSettings.minAlpha = (new.toFloat() / 10)
         }
-        binding.maxAlpha.setOnValueChangedListener { numberPicker, old, new ->
+        binding.maxAlpha.setOnValueChangedListener { _, _, new ->
             doppelSettings.maxAlpha = (new.toFloat() / 10)
         }
         binding.minAlpha.value = 5
@@ -128,11 +126,10 @@ class DeckActivity : BaseActivity() {
         val configurationBuilder = DoppelConfigurationBuilder(this)
                 .withBackgroundProvider(colorDrawablesProvider)
         when {
-            doppelSettings.type.isEmpty() -> {
-            }
+            doppelSettings.type.isEmpty() -> { }
             else -> configurationBuilder.targetSpecificViewTypes(*doppelSettings.getTypes<View>())
         }
-        doppel = Doppel(binding.sampleData, configurationBuilder.build())
+        doppel = Doppel(this, configurationBuilder.build(), binding.testOrderCard, binding.testUserProfileCard)
     }
 }
 
