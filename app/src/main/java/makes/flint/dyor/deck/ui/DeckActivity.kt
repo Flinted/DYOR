@@ -181,7 +181,7 @@ private class DoppelSettings(context: Context, binding: ActivityDeckBinding) {
     var speed = 1000L
     var radius = 0f
     var shrinkage = 5
-    var strokeWidth = 3
+    var strokeWidth = 0
     var strokeColor = Color.BLACK
     var scope: Array<View> = arrayOf(binding.testUserProfileCard, binding.testOrderCard)
 

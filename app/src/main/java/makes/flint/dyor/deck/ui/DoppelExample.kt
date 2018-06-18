@@ -76,6 +76,8 @@ class DoppelExample : Activity() {
         backgroundProvider.setMinAlpha(0.4f)
         backgroundProvider.setMaxAlpha(0.9f)
         backgroundProvider.setCornerRadius(30f)
+        backgroundProvider.setShrinkage(5)
+        backgroundProvider.setStroke(3, R.color.blue5_doppel)
 
         val doppelConfiguration = DoppelConfigurationBuilder(this)
                 .withBackgroundProvider(backgroundProvider)
@@ -89,8 +91,15 @@ class DoppelExample : Activity() {
     // You can set colours for multiple view types, and have to provide a default for other views.
     private fun doppelWithSecondCustomBackgroundProvider() {
         val defaultColor = ContextCompat.getColor(this, R.color.colorPrimaryDark)
-        val textViewColorHolder = DoppelViewTypeColor(this, R.color.colorAccent, AppCompatTextView::class.java, AppCompatEditText::class.java)
-        val imageViewColorHolder = DoppelViewTypeColor(this, R.color.colorPrimary, AppCompatImageView::class.java)
+        val textViewColorHolder = DoppelViewTypeColor(
+                this,
+                R.color.colorAccent,
+                AppCompatTextView::class.java,
+                AppCompatEditText::class.java)
+        val imageViewColorHolder = DoppelViewTypeColor(
+                this,
+                R.color.colorPrimary,
+                AppCompatImageView::class.java)
 
         val backgroundProvider = DoppelViewTypeColorProvider(defaultColor)
         backgroundProvider.setAnimationSpeed(500)
