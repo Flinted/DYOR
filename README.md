@@ -18,13 +18,18 @@ Doppel basically works by hiding the content of Views and swapping out their bac
 
 Doppel is highly customisable.  Follow through this ReadMe for more information on how.
 
+# Installation
+---
+
+> Install instructions will go here.
+
 # Usage
 ___
 
 ### Out of the Box
+The following examples are all in Kotlin.  Java examples will be added shortly.
 ___
 
-Kotlin:
 ```kotlin
 val configuration = DoppelConfigurationBuilder(context).build()
 val doppel = Doppel(configuration, viewToDoppel, anotherViewToDoppel)
@@ -357,8 +362,27 @@ doppel.on()
 ```
 Doppel instances themselves by their very nature are associated with live views, and should be destroyed along with the views.
 
+### Default Settings:
+---
+These are the default settings for Doppel.
 
+##### ANIMATION:
++ Animation Speed: 1000ms
++ MinAlpha: 0.6f
++ MaxAlpha: 1.0f
 
+##### STROKE:
++ Width: 0pixels
++ Color: Color.Transparent
+
+##### VIEWS
++ Corners: 0f
++ Shrinkage: 3pixels
++ Targeting: All views.
+
+##### COLORS:
++ DoppelBackgroundProvider: DoppelColorDrawableProvider
++ Colors: DoppelColors.GRAYS
  
  
 

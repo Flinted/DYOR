@@ -2,6 +2,7 @@ package makes.flint.doppel.backgroundproviders
 
 import android.graphics.Color
 import android.graphics.drawable.Drawable
+import android.graphics.drawable.GradientDrawable
 import android.view.View
 import makes.flint.doppel.backgroundproviders.drawables.DoppelColorDrawable
 
@@ -9,23 +10,15 @@ import makes.flint.doppel.backgroundproviders.drawables.DoppelColorDrawable
  * DoppelViewTypeColorProvider
  */
 class DoppelViewTypeColorProvider(private val defaultColor: Int = Color.GRAY
-) : DoppelBackgroundProvider {
+) : BaseDrawableProvider(), DoppelBackgroundProvider {
 
-    private var animationSpeed: Long = 1000
-    private var minAlpha: Float = 0.3f
-    private var maxAlpha: Float = 1f
-    private var shrinkage = 3
-    private var strokeThickness = 0
-    private var strokeColor = Color.TRANSPARENT
-    private var radius = 0f
-
-    private val defaultDrawable = lazy { DoppelColorDrawable(defaultColor, animationSpeed, minAlpha, maxAlpha, shrinkage, strokeThickness, strokeColor, radius) }
+    private val defaultDrawable = lazy { DoppelColorDrawable(defaultColor, defaultColor, GradientDrawable.Orientation.TL_BR, animationConfiguration, viewConfiguration) }
 
     private var map: MutableMap<Class<*>, Int> = mutableMapOf()
 
     override fun getBackgroundFor(view: View, layer: Int, depth: Int): Drawable {
         val color = map[view.javaClass] ?: return defaultDrawable.value
-        return DoppelColorDrawable(color, animationSpeed, minAlpha, maxAlpha, strokeThickness, strokeColor, shrinkage, radius)
+        return DoppelColorDrawable(color, color, GradientDrawable.Orientation.TL_BR, animationConfiguration, viewConfiguration)
     }
 
     override fun getColorFor(view: View, layer: Int, depth: Int): Int {
@@ -39,30 +32,5 @@ class DoppelViewTypeColorProvider(private val defaultColor: Int = Color.GRAY
                 map[viewType] = viewTypeColor.color
             }
         }
-    }
-
-    fun setAnimationSpeed(speedMs: Long) {
-        animationSpeed = speedMs
-    }
-
-    fun setMinAlpha(alpha: Float) {
-        minAlpha = alpha
-    }
-
-    fun setMaxAlpha(alpha: Float) {
-        maxAlpha = alpha
-    }
-
-    fun setCornerRadius(radiusPixels: Float) {
-        radius = radiusPixels
-    }
-
-    fun setShrinkage(shrinkagePercent: Int) {
-        shrinkage = shrinkagePercent
-    }
-
-    fun setStroke(thickness: Int, color: Int) {
-        strokeThickness = thickness
-        strokeColor = color
     }
 }

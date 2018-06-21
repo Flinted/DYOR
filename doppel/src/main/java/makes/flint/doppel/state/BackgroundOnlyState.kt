@@ -9,7 +9,7 @@ import makes.flint.doppel.backgroundproviders.drawables.DoppelAnimatable
  */
 class BackgroundOnlyState(view: View,
                           private val background: Drawable
-) :BaseViewState<View>(view), ViewState<View> {
+) : BaseViewState<View>(view), ViewState<View> {
 
     private val originalBackground = view.background
 
