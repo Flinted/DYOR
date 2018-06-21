@@ -1,5 +1,8 @@
 package makes.flint.doppel.backgroundproviders
 
+import makes.flint.doppel.backgroundproviders.configurations.AnimationConfiguration
+import makes.flint.doppel.backgroundproviders.configurations.ViewConfiguration
+
 /**
  * BaseDrawableProvider
  */

@@ -5,8 +5,8 @@ import android.graphics.drawable.LayerDrawable
 import android.view.View
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
-import makes.flint.doppel.backgroundproviders.AnimationConfiguration
-import makes.flint.doppel.backgroundproviders.ViewConfiguration
+import makes.flint.doppel.backgroundproviders.configurations.AnimationConfiguration
+import makes.flint.doppel.backgroundproviders.configurations.ViewConfiguration
 
 
 /**

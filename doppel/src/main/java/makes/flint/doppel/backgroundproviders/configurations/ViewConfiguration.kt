@@ -1,4 +1,4 @@
-package makes.flint.doppel.backgroundproviders
+package makes.flint.doppel.backgroundproviders.configurations
 
 import android.graphics.Color
 

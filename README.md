@@ -362,8 +362,27 @@ doppel.on()
 ```
 Doppel instances themselves by their very nature are associated with live views, and should be destroyed along with the views.
 
+### Default Settings:
+---
+These are the default settings for Doppel.
 
+##### ANIMATION:
++ Animation Speed: 1000ms
++ MinAlpha: 0.6f
++ MaxAlpha: 1.0f
 
+##### STROKE:
++ Width: 0pixels
++ Color: Color.Transparent
+
+##### VIEWS
++ Corners: 0f
++ Shrinkage: 3pixels
++ Targeting: All views.
+
+##### COLORS:
++ DoppelBackgroundProvider: DoppelColorDrawableProvider
++ Colors: DoppelColors.GRAYS
  
  
 
