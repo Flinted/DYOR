@@ -3,6 +3,7 @@ package makes.flint.doppel
 import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
+import makes.flint.doppel.configuration.DoppelExclusion
 import makes.flint.doppel.doppelState.state.ViewState
 import makes.flint.doppel.doppelState.state.ViewStateFactory
 import makes.flint.doppel.doppelState.state.overridedimensions.DoppelOverride
@@ -33,8 +34,9 @@ class Doppel(private val configuration: DoppelConfigurable, vararg parents: View
         views.values.forEach { state ->
             state.doppel()
         }
-        parentViews.forEach {
-            it.get()?.parent?.recomputeViewAttributes(it.get()!!)
+        parentViews.forEach { viewWrapper ->
+            val view = viewWrapper.get() ?: return@forEach
+            view.parent.recomputeViewAttributes(view)
         }
     }
 
@@ -48,10 +50,35 @@ class Doppel(private val configuration: DoppelConfigurable, vararg parents: View
         }
     }
 
-    fun excludeViewsById(vararg ids: Int) {
+    fun excludeViewsById(vararg exclusions: DoppelExclusion) {
+        exclusions.forEach {
+            if (it.excludeChildren) {
+                removeViewAndChildrenById(it.ids)
+                return@forEach
+            }
+            removeViewsById(*it.ids)
+        }
+    }
+
+    private fun removeViewsById(vararg ids: Int) {
         ids.forEach { id ->
             val view = findViewById(id)
             views.remove(view)
+        }
+    }
+
+    private fun removeViewAndChildrenById(ids: IntArray) {
+        ids.forEach { id ->
+            val view = findViewById(id) ?: return@forEach
+            removeViewsRecursively(view)
+        }
+    }
+
+    private fun removeViewsRecursively(view: View) {
+        views.remove(view)
+        val viewGroup = view as? ViewGroup ?: return
+        for (count in 0 until viewGroup.childCount) {
+            removeViewsRecursively(viewGroup.getChildAt(count))
         }
     }
 
@@ -105,27 +132,35 @@ class Doppel(private val configuration: DoppelConfigurable, vararg parents: View
 
     private fun addOverride(override: DoppelOverride) {
         override.viewId.forEach { id ->
-            val view = findViewById(id)
-            val viewToOverride = views[view] ?: let {
-                return
-            }
-            val height = calculatePixelsFromDp(override.heightDp?.toFloat())
-            val width = calculatePixelsFromDp(override.widthDp?.toFloat())
-            viewToOverride.setOverrideDimensions(height, width)
+            addOverrideForId(id, override)
         }
+    }
+
+    private fun addOverrideForId(id: Int, override: DoppelOverride) {
+        val view = findViewById(id)
+        val viewToOverride = views[view] ?: let {
+            return
+        }
+        val height = calculatePixelsFromDp(override.heightDp?.toFloat())
+        val width = calculatePixelsFromDp(override.widthDp?.toFloat())
+        viewToOverride.setOverrideDimensions(height, width)
     }
 
     private fun processParentViews() {
         parentViews.forEach { parentHolder ->
-            val parent = parentHolder.get() ?: return@forEach
-            val startingLayer = processParentView(parent)
-            byLayer(parent, startingLayer)
+            processParentView(parentHolder)
         }
     }
 
+    private fun processParentView(parentHolder: WeakReference<View>) {
+        val parent = parentHolder.get() ?: return
+        val startingLayer = processParentView(parent)
+        byLayer(parent, startingLayer)
+    }
+
     private fun findViewById(id: Int): View? {
-        parentViews.forEach { view ->
-            val view = view.get()?.findViewById<View>(id)
+        parentViews.forEach { viewWrapper ->
+            val view = viewWrapper.get()?.findViewById<View>(id)
             view ?: return@forEach
             return view
         }
