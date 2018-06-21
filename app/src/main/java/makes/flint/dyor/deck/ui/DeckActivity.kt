@@ -108,16 +108,16 @@ class DeckActivity : BaseActivity() {
         binding.strokeWidth.minValue = 0
         binding.strokeWidth.maxValue = 20
 
-        binding.radius.setOnValueChangedListener { numberPicker, old, new ->
+        binding.radius.setOnValueChangedListener { _, _, new ->
             doppelSettings.radius = (new * 10).toFloat()
         }
-        binding.speed.setOnValueChangedListener { numberPicker, old, new ->
+        binding.speed.setOnValueChangedListener { _, _, new ->
             doppelSettings.speed = (new * 100).toLong()
         }
-        binding.shrinkage.setOnValueChangedListener { numberPicker, old, new ->
+        binding.shrinkage.setOnValueChangedListener { _, _, new ->
             doppelSettings.shrinkage = new
         }
-        binding.strokeWidth.setOnValueChangedListener { numberPicker, old, new ->
+        binding.strokeWidth.setOnValueChangedListener { _, _, new ->
             doppelSettings.strokeWidth = new
         }
         binding.shrinkage.value = 5
@@ -150,7 +150,6 @@ class DeckActivity : BaseActivity() {
     private fun createDoppelInstanceForSettings() {
         val configuration = makeDoppelConfiguration()
         doppel = Doppel(configuration, *doppelSettings.scope)
-        doppel?.excludeViewsById(R.id.toggle_button)
     }
 
     private fun makeDoppelConfiguration(): DoppelConfiguration {

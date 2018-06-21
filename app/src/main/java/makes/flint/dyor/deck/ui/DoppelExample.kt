@@ -43,7 +43,6 @@ class DoppelExample : Activity() {
 
         val doppel = Doppel(injectedConfiguration, view1, view2)
         doppel.addOverrides(override1, override2)
-        doppel.excludeViewsById(R.id.test_image_profile, R.id.test_image_overlay)
         doppel.on()
 
     }
@@ -71,7 +70,7 @@ class DoppelExample : Activity() {
     private fun doppelWithCustomBackgroundProvider() {
         val colors = resources.getIntArray(R.array.mixed_doppel).toList()
 
-        val backgroundProvider = DoppelColorDrawablesProvider(this, colors)
+        val backgroundProvider = DoppelColorDrawablesProvider(colors)
         backgroundProvider.setAnimationSpeed(500)
         backgroundProvider.setMinAlpha(0.4f)
         backgroundProvider.setMaxAlpha(0.9f)

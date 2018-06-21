@@ -12,8 +12,9 @@ import makes.flint.doppel.doppelbuilder.configuration.DoppelConfigurable
 object ViewStateFactory {
 
     fun makeStateFor(view: View, configuration: DoppelConfigurable, layer: Int): ViewState<*> {
-        val background = configuration.getBackgroundFor(view, layer)
-        val color = configuration.getColorFor(view, layer)
+        val depth = configuration.depth
+        val background = configuration.backgroundProvider.getBackgroundFor(view, layer, depth)
+        val color = configuration.backgroundProvider.getColorFor(view, layer, depth)
         return when {
             layer > configuration.depth -> HideViewState(view)
             view is ImageButton -> ImageButtonState(view, background, color)

@@ -1,18 +1,16 @@
 package makes.flint.doppel.doppelbuilder.configuration
 
-import android.content.Context
 import android.view.View
 import makes.flint.doppel.backgroundproviders.DoppelBackgroundProvider
-import makes.flint.doppel.backgroundproviders.DoppelColorDrawablesProvider
 
 /**
  * DoppelConfiguration
  */
-class DoppelConfiguration internal constructor(context:Context) : DoppelConfigurable {
+class DoppelConfiguration internal constructor(provider: DoppelBackgroundProvider) : DoppelConfigurable {
 
-    override var depth = 8
+    override var depth = 10
     override var parentViewInclusive = true
-    internal var backgroundProvider: DoppelBackgroundProvider = DoppelColorDrawablesProvider(context)
+    override var backgroundProvider = provider
 
     internal var viewTypeList: List<Class<*>> = listOf()
     internal var targeting: Boolean? = null
@@ -25,7 +23,4 @@ class DoppelConfiguration internal constructor(context:Context) : DoppelConfigur
         }
         return !presentInList
     }
-
-    override fun getBackgroundFor(view: View, layer: Int) = backgroundProvider.getBackgroundFor(view, layer, depth)
-    override fun getColorFor(view: View, layer: Int): Int = backgroundProvider.getColorFor(view,layer,depth)
 }

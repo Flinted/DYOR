@@ -1,16 +1,14 @@
 package makes.flint.doppel.backgroundproviders
 
-import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.view.View
-import makes.flint.doppel.backgroundproviders.backgroundconvenience.DoppelColors
 import makes.flint.doppel.backgroundproviders.drawables.DoppelColorDrawable
 
 /**
  * DoppelColorDrawablesProvider
  */
-class DoppelColorDrawablesProvider(context: Context, private val colors: List<Int> = DoppelColors.GRAYS(context)) : DoppelBackgroundProvider {
+class DoppelColorDrawablesProvider(private val colors: List<Int>) : DoppelBackgroundProvider {
 
     private var animationSpeed = 1000L
     private var minAlpha = 0.3f
@@ -59,8 +57,9 @@ class DoppelColorDrawablesProvider(context: Context, private val colors: List<In
     }
 
     override fun getColorFor(view: View, layer: Int, depth: Int): Int {
-        if (layer > colors.size) {
-            return colors.first()
+        var layerAdjusted = layer
+        while (layerAdjusted > colors.size) {
+            layerAdjusted -= colors.size
         }
         return colors[layer - 1]
     }
