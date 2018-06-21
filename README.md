@@ -18,13 +18,18 @@ Doppel basically works by hiding the content of Views and swapping out their bac
 
 Doppel is highly customisable.  Follow through this ReadMe for more information on how.
 
+# Installation
+---
+
+> Install instructions will go here.
+
 # Usage
 ___
 
 ### Out of the Box
+The following examples are all in Kotlin.  Java examples will be added shortly.
 ___
 
-Kotlin:
 ```kotlin
 val configuration = DoppelConfigurationBuilder(context).build()
 val doppel = Doppel(configuration, viewToDoppel, anotherViewToDoppel)

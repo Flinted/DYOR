@@ -153,7 +153,7 @@ class DeckActivity : BaseActivity() {
     }
 
     private fun makeDoppelConfiguration(): DoppelConfiguration {
-        val colorDrawablesProvider = DoppelColorDrawablesProvider(this, doppelSettings.colors)
+        val colorDrawablesProvider = DoppelColorDrawablesProvider(doppelSettings.colors)
         colorDrawablesProvider.setAnimationSpeed(doppelSettings.speed)
         colorDrawablesProvider.setMinAlpha(doppelSettings.minAlpha)
         colorDrawablesProvider.setMaxAlpha(doppelSettings.maxAlpha)

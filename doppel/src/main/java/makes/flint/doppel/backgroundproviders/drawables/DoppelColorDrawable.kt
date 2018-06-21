@@ -5,34 +5,34 @@ import android.graphics.drawable.LayerDrawable
 import android.view.View
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
+import makes.flint.doppel.backgroundproviders.AnimationConfiguration
+import makes.flint.doppel.backgroundproviders.ViewConfiguration
 
 
 /**
  * DoppelColorDrawable
  */
-class DoppelColorDrawable(val color: Int,
-                          private val animationSpeed: Long,
-                          private val minAlpha: Float,
-                          private val maxAlpha: Float,
-                          strokeThickness: Int,
-                          strokeColor: Int,
-                          shrinkage: Int,
-                          radius: Float
-) : LayerDrawable(arrayOf(GradientDrawable(GradientDrawable.Orientation.BOTTOM_TOP, intArrayOf(color, color)))), DoppelAnimatable {
+internal class DoppelColorDrawable(startColor: Int,
+                                   endColor: Int,
+                                   orientation: GradientDrawable.Orientation,
+                                   private val animationConfiguration: AnimationConfiguration,
+                                   viewConfiguration: ViewConfiguration
+) : LayerDrawable(arrayOf(GradientDrawable(orientation, intArrayOf(startColor, endColor)))), DoppelAnimatable {
 
     init {
-        (getDrawable(0) as GradientDrawable).cornerRadius = radius
-        (getDrawable(0) as GradientDrawable).setStroke(strokeThickness, strokeColor)
+        (getDrawable(0) as GradientDrawable).cornerRadius = viewConfiguration.radius
+        (getDrawable(0) as GradientDrawable).setStroke(viewConfiguration.strokeThickness, viewConfiguration.strokeColor)
+        val shrinkage = viewConfiguration.shrinkage
         setLayerInset(0, shrinkage, shrinkage, shrinkage, shrinkage)
         invalidateSelf()
     }
 
     override fun start(view: View) {
-        if (animationSpeed <= 0) {
+        if (animationConfiguration.animationSpeed <= 0) {
             return
         }
-        val fadeAnimation = AlphaAnimation(minAlpha, maxAlpha)
-        fadeAnimation.duration = animationSpeed
+        val fadeAnimation = AlphaAnimation(animationConfiguration.minAlpha, animationConfiguration.maxAlpha)
+        fadeAnimation.duration = animationConfiguration.animationSpeed
         fadeAnimation.repeatMode = Animation.REVERSE
         fadeAnimation.repeatCount = Animation.INFINITE
         view.startAnimation(fadeAnimation)
