@@ -1,11 +1,9 @@
 package makes.flint.doppel
 
-import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
 import makes.flint.doppel.configuration.DoppelExclusion
 import makes.flint.doppel.doppelState.state.ViewState
-import makes.flint.doppel.doppelState.state.ViewStateFactory
 import makes.flint.doppel.doppelState.state.overridedimensions.DoppelOverride
 import makes.flint.doppel.doppelbuilder.configuration.DoppelConfigurable
 import java.lang.ref.WeakReference
@@ -23,7 +21,7 @@ class Doppel(private val configuration: DoppelConfigurable, vararg parents: View
 
     init {
         parentViews = parents.map { WeakReference(it) }
-        processParentViews()
+        views = ViewProcessor(configuration).process(parentViews)
     }
 
     fun on() {
@@ -98,38 +96,6 @@ class Doppel(private val configuration: DoppelConfigurable, vararg parents: View
         }
     }
 
-    private fun byLayer(view: View, layer: Int) {
-        if (view !is ViewGroup) {
-            return
-        }
-        val layerViewsCount = view.childCount
-        for (i in 0 until layerViewsCount) {
-            val child = view.getChildAt(i)
-            processChildView(child, layer)
-        }
-    }
-
-    private fun processParentView(parent: View): Int {
-        if (!configuration.parentViewInclusive) {
-            return 1
-        }
-        addView(parent, 1)
-        return 2
-    }
-
-    private fun processChildView(child: View, layer: Int) {
-        addView(child, layer)
-        byLayer(child, layer + 1)
-    }
-
-    private fun addView(view: View, layer: Int) {
-        if (!configuration.validate(view)) {
-            return
-        }
-        val state = ViewStateFactory.makeStateFor(view, configuration, layer)
-        this.views[view] = state
-    }
-
     private fun addOverride(override: DoppelOverride) {
         override.viewId.forEach { id ->
             addOverrideForId(id, override)
@@ -141,22 +107,11 @@ class Doppel(private val configuration: DoppelConfigurable, vararg parents: View
         val viewToOverride = views[view] ?: let {
             return
         }
-        val height = calculatePixelsFromDp(override.heightDp?.toFloat())
-        val width = calculatePixelsFromDp(override.widthDp?.toFloat())
+        val height = calculatePixelsFromDp(override.heightDp)
+        val width = calculatePixelsFromDp(override.widthDp)
         viewToOverride.setOverrideDimensions(height, width)
     }
 
-    private fun processParentViews() {
-        parentViews.forEach { parentHolder ->
-            processParentView(parentHolder)
-        }
-    }
-
-    private fun processParentView(parentHolder: WeakReference<View>) {
-        val parent = parentHolder.get() ?: return
-        val startingLayer = processParentView(parent)
-        byLayer(parent, startingLayer)
-    }
 
     private fun findViewById(id: Int): View? {
         parentViews.forEach { viewWrapper ->
@@ -167,10 +122,9 @@ class Doppel(private val configuration: DoppelConfigurable, vararg parents: View
         return null
     }
 
-    private fun calculatePixelsFromDp(valueDp: Float?): Int? {
+    private fun calculatePixelsFromDp(valueDp: Int?): Int? {
         valueDp ?: return null
         val displayMetrics = parentViews.first().get()?.resources?.displayMetrics ?: return null
-        val pixelValue = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, valueDp, displayMetrics)
-        return pixelValue.toInt()
+        return DpConverter.calculatePixelsFromDp(valueDp, displayMetrics)
     }
 }

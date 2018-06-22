@@ -270,16 +270,16 @@ Can be set anywhere from 0.00...f - 1.0f
 ##### setCornerRadius
 ---
 ```kotlin
-// setCornerRadius(radiusPixels: Float)
-backgroundProvider.setCornerRadius(30f)
+// setCornerRadius(context: Context, radiusDp: Int)
+backgroundProvider.setCornerRadius(context, 30)
 ```
 This allows you to choose the corner radii for all views in the Doppel. 
 
 ##### setShrinkage
 ---
 ```kotlin
-//setShrinkage(shrinkage: Int)
-backgroundProvider.setShrinkage(5)
+//setShrinkage(context: Context, shrinkageDp: Int)
+backgroundProvider.setShrinkage(context, 5)
 ```
 Often there is no space between views if padding is used in preference of margin.  
 Shrinkage allows you to slightly, or significantly, reduce a views size when in a Doppel state, so that views appear separate. 
@@ -288,8 +288,8 @@ Shrinkage allows you to slightly, or significantly, reduce a views size when in 
 ##### setStroke
 ---
 ```kotlin
-//setStroke(thickness: Int, color: Int)
-backgroundProvider.setStroke(3, R.color.blue5_doppel) 
+//setStroke(contextL Context, thicknessDp: Int, color: Int)
+backgroundProvider.setStroke(context, 3, R.color.blue5_doppel) 
 ```
 This allows you to set a stroke around all views,  first argument is the stroke thickness in pixels, second is the id for the Color resource to use.
 
@@ -304,9 +304,9 @@ val provider = DoppelColorDrawablesProvider(colorsList)
 provider.setAnimationSpeed(1000)
 provider.setMinAlpha(0.6)
 provider.setMaxAlpha(0.95)
-provider.setCornerRadius(5)
-provider.setShrinkage(10)
-provider.setStroke(3, R.color.colorPrimaryDark)
+provider.setCornerRadius(context, 5)
+provider.setShrinkage(context, 10)
+provider.setStroke(context, 3, R.color.colorPrimaryDark)
 ```
 
 So the above will give you backgrounds that:
@@ -337,8 +337,8 @@ val imageViewColorHolder = DoppelViewTypeColor(
 val primaryDark = ContextCompat.getColor(context, R.id.colorPrimaryDark)
 val provider = DoppelViewTypeColorProvider(primaryDark)
 provider.addViewTypeColors(textViewColorHolder, imageViewColorHolder)
-provider.setShrinkage(10)
-provider.setCornerRadius(10)
+provider.setShrinkage(context, 10)
+provider.setCornerRadius(context, 10)
 
 val configuration = DoppelConfigurationBuilder(context)
                         .withBackgroundProvider(provider)

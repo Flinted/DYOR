@@ -1,5 +1,7 @@
 package makes.flint.doppel.backgroundproviders
 
+import android.content.Context
+import makes.flint.doppel.DpConverter
 import makes.flint.doppel.backgroundproviders.configurations.AnimationConfiguration
 import makes.flint.doppel.backgroundproviders.configurations.ViewConfiguration
 
@@ -31,16 +33,21 @@ abstract class BaseDrawableProvider : DoppelBackgroundProvider {
         animationConfiguration.maxAlpha = alpha
     }
 
-    fun setCornerRadius(radiusPixels: Float) {
-        viewConfiguration.radius = radiusPixels
+    fun setCornerRadius(context: Context, radiusDp: Int) {
+        viewConfiguration.radius = calculatePixelsForDp(context, radiusDp).toFloat()
     }
 
-    fun setShrinkage(shrinkagePercent: Int) {
-        viewConfiguration.shrinkage = shrinkagePercent
+    fun setShrinkage(context: Context, shrinkageDp: Int) {
+        viewConfiguration.shrinkage = calculatePixelsForDp(context, shrinkageDp)
     }
 
-    fun setStroke(thickness: Int, color: Int) {
-        viewConfiguration.strokeThickness = thickness
+    fun setStroke(context: Context, thicknessDp: Int, color: Int) {
+        viewConfiguration.strokeThickness = calculatePixelsForDp(context, thicknessDp)
         viewConfiguration.strokeColor = color
+    }
+
+    private fun calculatePixelsForDp(context: Context, value: Int): Int {
+        val displayMetrics = context.resources.displayMetrics
+        return DpConverter.calculatePixelsFromDp(value, displayMetrics)
     }
 }

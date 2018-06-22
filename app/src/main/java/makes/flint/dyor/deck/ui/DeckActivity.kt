@@ -109,7 +109,7 @@ class DeckActivity : BaseActivity() {
         binding.strokeWidth.maxValue = 20
 
         binding.radius.setOnValueChangedListener { _, _, new ->
-            doppelSettings.radius = (new * 10).toFloat()
+            doppelSettings.radius = (new * 10)
         }
         binding.speed.setOnValueChangedListener { _, _, new ->
             doppelSettings.speed = (new * 100).toLong()
@@ -157,9 +157,9 @@ class DeckActivity : BaseActivity() {
         colorDrawablesProvider.setAnimationSpeed(doppelSettings.speed)
         colorDrawablesProvider.setMinAlpha(doppelSettings.minAlpha)
         colorDrawablesProvider.setMaxAlpha(doppelSettings.maxAlpha)
-        colorDrawablesProvider.setCornerRadius(doppelSettings.radius)
-        colorDrawablesProvider.setStroke(doppelSettings.strokeWidth, doppelSettings.strokeColor)
-        colorDrawablesProvider.setShrinkage(doppelSettings.shrinkage)
+        colorDrawablesProvider.setCornerRadius(this, doppelSettings.radius)
+        colorDrawablesProvider.setStroke(this, doppelSettings.strokeWidth, doppelSettings.strokeColor)
+        colorDrawablesProvider.setShrinkage(this, doppelSettings.shrinkage)
         val configurationBuilder = DoppelConfigurationBuilder(this)
                 .withBackgroundProvider(colorDrawablesProvider)
         when {
@@ -178,7 +178,7 @@ private class DoppelSettings(context: Context, binding: ActivityDeckBinding) {
     var minAlpha = 0.5f
     var maxAlpha = 1f
     var speed = 1000L
-    var radius = 0f
+    var radius = 0
     var shrinkage = 5
     var strokeWidth = 0
     var strokeColor = Color.BLACK
